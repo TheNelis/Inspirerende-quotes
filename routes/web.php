@@ -10,32 +10,13 @@ Route::get('/', AllQuotes::class);
 
 Route::get('/favorieten', FavQuotes::class);
 
-// Route::get('/', function () {
-//     $quotes = Quote::with('name')->latest()->paginate(20);
-//     $personen = Name::all();
-    
-//     return view('home', [
-//         'quotes' => $quotes,
-//         'personen' => $personen
-//     ]);
-// });
-
-// Route::get('/favorieten', function () {
-//     $quotes = Quote::with('name')->where('favourite', 1)->latest()->paginate(20);
-//     $personen = Name::all();
-    
-//     return view('home', [
-//         'quotes' => $quotes,
-//         'personen' => $personen
-//     ]);
-// });
-
 Route::post('/', function () {
 
     request()->validate([
+        'newname' => ['max:12'],
         'name' => ['required'],
         'date' => ['required'],
-        'quote' => ['required']
+        'quote' => ['required', 'max:150']
     ]);
 
     if (request('newname')){
@@ -59,6 +40,11 @@ Route::post('/', function () {
 });
 
 Route::patch('/', function () {
+
+    request()->validate([
+        'newname' => ['max:12'],
+        'quote' => ['max:150']
+    ]);
 
     $quote = Quote::findOrFail(request('id'));
 

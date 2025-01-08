@@ -18,19 +18,29 @@
         </a>
     </div>
 
+    @if($errors->any())
+        <ul class="errorlist">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
     <section class="filtercontainer">
         <x-filterbutton filtertype="favourite">Favorieten</x-filterbutton>
         <x-filterbutton filtertype="searchbar">Zoek op naam of trefwoord</x-filterbutton>
         <x-filterbutton filtertype="button" onClick="document.getElementById('addQuoteForm').parentNode.style.display='flex'">Voeg quote toe</x-filterbutton>
     </section>
 
-    <section class="quotescontainer-test">
-        @if($quotes)
+    <section class="quotescontainer">
+        @if($quotes[0])
             @foreach ($quotes as $quote)
                 <x-quotecard id="quote{{ $quote->id }}" quoteId="{{ $quote->id }}" name="{{ $quote->name->name }}" date="{{ $quote->date }}" quote="{{ $quote->quote }}" favourite="{{ $quote->favourite }}"></x-quotecard>
             @endforeach
         @else
-            <h1>no quotes found</h1>
+            <div class="statuscontainer">
+                <h1>Geen quotes gevonden</h1>
+            </div>
         @endif
     </section>
 
@@ -49,7 +59,7 @@
             @csrf
 
             <h4 onClick="document.getElementById('addQuoteForm').parentNode.style.display='none'" class="addquoteform__annuleren">Annuleren</h4>
-            <textarea type="text" name="quote" placeholder="Typ hier je quote..." class="addquoteform__textfield" required></textarea>
+            <textarea type="text" name="quote" placeholder="Typ hier je quote... (max. 150)" class="addquoteform__textfield" required></textarea>
             <div class="addquoteform__container">
                 <div class="addquoteform__container__div">
                     <select id="addDropdown" name="name" class="addquoteform__container__dropdown" required>
@@ -60,7 +70,7 @@
                         <option value="anders">Anders...</option>
                     </select>
                     <input type="date" name="date" class="addquoteform__container__date" required>
-                    <input type="text" name="newname" placeholder="Naam" id="anders" class="addquoteform__container__anders">
+                    <input type="text" name="newname" placeholder="Naam (max. 12)" id="anders" class="addquoteform__container__anders">
                 </div>
                 <div>
                     <input type="submit" value="Toevoegen" class="addquoteform__container__toevoegen">

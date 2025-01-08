@@ -32,12 +32,19 @@
             width: 24px;
             height: 24px;
             flex-shrink: 0;
+            transition: all .3s ease-in-out;
         }
 
         @media only screen and (min-width:v.$lg){
             svg {
                 width: 34px;
                 height: 34px;
+            }
+        }
+
+        &:hover {
+            svg {
+                margin: 0 5px 0 -5px;
             }
         }
     }
@@ -83,6 +90,7 @@
 
     &__quizcontainer {
         display: flex;
+        align-items: center;
         gap: 10px;
         padding: 5px 10px 5px 10px;
         height: min-content;
