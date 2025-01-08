@@ -7,54 +7,86 @@
 }
 
 .maincontainer {
-    margin: 0px v.$margin-desktop 0px v.$margin-desktop;
-}
+    margin: 0px v.$margin-mobile 0px v.$margin-mobile;
 
-.title {
-    color: v.$yellowdark;
-    font-weight: v.$bold;
-    font-size: 100px;
-    text-transform: uppercase;
-    text-align: center;
-    line-height: 100%;
-    margin-top: 40px;
-    margin-bottom: 100px;
-
-    span {
-        color: black;
-        font-style: normal;
-        font-weight: v.$bold;
+    @media only screen and (min-width:v.$lg){
+        margin: 0px v.$margin-desktop 0px v.$margin-desktop;
     }
 }
 
 .filtercontainer {
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    @media only screen and (min-width:v.$md){
+        justify-content: flex-end;
+    }
+
+    @media only screen and (min-width:v.$lg){
+        flex-wrap: nowrap;
+        gap: 20px;
+    }
 
     &__section {
         display: flex;
+        white-space: nowrap;
+        order: 2;
         flex: 1;
+
+        @media only screen and (min-width:v.$md){
+            order: 1;
+        }
+
+        @media only screen and (min-width:v.$lg){
+            flex: 1;
+        }
 
         &__button {
             display: flex;
             align-items: center;
-            gap: 15px;
-            padding: 5px 20px 5px 20px;
-            font-size: 20px;
-    
-            // background-color: white;
+            gap: 10px;
+            padding: 10px 10px 10px 10px;
             border: 2px solid black;
+            font-size: 16px;
+
+            svg {
+                width: 28px;
+                height: 28px;
+                flex-shrink: 0;
+            }
+
+            @media only screen and (min-width:v.$lg){
+                gap: 15px;
+                padding: 5px 20px 5px 20px;
+                font-size: 20px;
+
+                svg {
+                    width: 34px;
+                    height: 34px;
+                }
+            }
         }
 
         &--addbutton {
             justify-content: flex-end;
+            order: 3;
         }
 
         &--searchbar {
             transition: all .3s ease-out;
+            order: 1;
+            min-width: 100%;
         
             &:focus-within {
                 flex: 1.5;
+            }
+
+            @media only screen and (min-width:v.$md){
+                order: 2;
+                min-width: auto;
+                flex: 1;
             }
         }
     }
@@ -65,7 +97,6 @@
 
     input {
         height: 100%;
-        font-size: 20px;
         width: 100%;
         border: none;
         outline: none;
@@ -87,6 +118,21 @@
     }
 }
 
+.quotescontainer-test {
+    margin-top: v.$margin-desktop;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    margin-top: 20px;
+
+    @media only screen and (min-width:v.$lg){
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 40px 0 120px 0;
+        gap: 20px;
+    }
+}
+
 .quotecard {
     background-color: white;
     border: 2px solid black;
@@ -94,22 +140,52 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    transition: all .3s ease-in-out;
     gap: 20px;
+    width: 100%;
+
+    @media only screen and (min-width:v.$lg){
+        width: calc((100% - 40px) / 3);
+
+        &:nth-child(3n-7) {
+            margin: 80px 0 -80px 0;
     
+            &:hover {
+                margin: 75px 0 -75px 0;
+            }
+        }
+
+        &:hover {
+            margin: -5px 0 5px 0;
+            -webkit-box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.25);
+            -moz-box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.25);
+            box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.25);
+        }
+    }
 
     &__iconcontainer {
         height: 40px;
+        margin-bottom: 10px;
     }
 
     &__quote {
-        font-size: 24px;
+        font-size: 20px;
+
+        @media only screen and (min-width:v.$lg){
+            font-size: 24px;
+        }
     }
 
     &__infocontainer {
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        font-size: 18px;
+        font-size: 16px;
+
+        @media only screen and (min-width:v.$lg){
+            font-size: 18px;
+        }
 
         &__info {
             width: 70%;
@@ -119,13 +195,17 @@
 
         &__bekijk {
             text-decoration: underline;
-            font-size: 20px;
+            font-size: 16px;
             cursor: pointer;
+
+            @media only screen and (min-width:v.$lg){
+                font-size: 20px;
+            }
         }
     }
 }
 
-.navcontainer {
+.linkcontainer {
     margin-top: 40px;
 }
 
