@@ -1,7 +1,24 @@
 @use "resources/scss/variables.scss" as v;
 
+@keyframes titleScaleUp {
+    from {
+        transform: scale(0.6);
+        margin-top: -1.5vw;
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+
+@keyframes titleScaleDown {
+    to {
+        transform: scale(0.6);
+        margin-top: -2vw;
+    }
+}
+
 .navcontainer {
-    background-color: white;
     margin: 20px 0 30px 0;
     padding: 10px 0;
     display: flex;
@@ -13,13 +30,42 @@
         margin: 20px 0 50px 0;
     }
 
-    @media only screen and (min-width:v.$lg){
+    @media only screen and (min-width:v.$lg) {
         justify-content: space-between;
         align-items: flex-start;
         font-size: 20px;
         margin: 20px 0 100px 0;
     }
 
+    &__flexcontainer {
+        &--right {
+            order: 2;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        &--title {
+            order: 3;
+            width: 100%;
+        }
+
+        @media only screen and (min-width:v.$lg){
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+
+            &--title {
+                flex: 4;
+                justify-content: center;
+                order: 2;
+            }
+
+            &--right {
+                order: 3;
+                justify-content: flex-end;
+            }
+        }
+    }
 
     &__boards {
         display: flex;
@@ -27,6 +73,7 @@
         gap: 5px;
         white-space: nowrap;
         order: 1;
+        text-decoration: underline;
 
         svg {
             width: 24px;
@@ -58,17 +105,22 @@
         min-width: 100%;
         order: 3;
         margin-top: 50px;
+        animation: titleScaleUp 1s forwards;
 
         @media only screen and (min-width:v.$md){
             font-size: 9vw;
         }
 
         @media only screen and (min-width:v.$lg){
-            margin-top: -10px;
+            margin-top: 10px;
             min-width: auto;
             line-break: anywhere;
             order: 2;
             font-size: 7vw;
+        }
+
+        &--quizmode {
+            animation: titleScaleDown 1s forwards;
         }
 
         &__boardtitle {
@@ -88,7 +140,7 @@
         }
     }
 
-    &__quizcontainer {
+    &__quizbuttoncontainer {
         display: flex;
         align-items: center;
         gap: 10px;
@@ -97,9 +149,28 @@
         border: 2px solid black;
         order: 2;
 
+        &--question {
+            padding: 5px;
+
+            svg {
+                padding: 7px;
+            }
+        }
+
+        &--quizmode {
+            height: 48px;
+            flex-shrink: 0;
+            margin-right: 10px;
+            gap: 5px;
+
+            svg {
+                padding: 2px;
+            }
+        }
+
         svg {
-            width: 24px;
-            height: 24px;
+            width: 34px;
+            height: 34px;
             flex-shrink: 0;
         }
 
@@ -107,9 +178,13 @@
             gap: 15px;
             padding: 5px 20px 5px 20px;
 
-            svg {
-                width: 34px;
-                height: 34px;
+            &--question {
+                padding: 5px;
+            }
+
+            &--quizmode {
+                gap: 5px;
+                padding: 5px 20px 5px 11px;
             }
         }
     }

@@ -24,7 +24,7 @@ class FavQuotes extends Component
 
         $personen = Name::all();
 
-        return view('home', [
+        return view('board', [
             'quotes' => $quotes,
             'personen' => $personen
         ]);

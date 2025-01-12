@@ -1,0 +1,179 @@
+@use "resources/scss/variables.scss" as v;
+
+@keyframes nameReveal {
+	0% {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(1.8);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+.quizcontainer {
+    height: 65vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.quizcard {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all .3s ease-in-out;
+    gap: 20px;
+    width: calc(100% - v.$margin-mobile * 2);
+
+    @media only screen and (min-width:v.$lg){
+        width: 50%;
+    }
+
+    &__quote {
+        font-size: 22px;
+
+        @media only screen and (min-width:v.$lg){
+            font-size: 36px;
+        }
+    }
+
+    &__infocontainer__info {
+        display: flex;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        font-size: 18px;
+
+        h4:nth-child(-n + 2) {
+            font-size: 24px;
+
+            @media only screen and (min-width:v.$lg){
+                font-size: 32px;
+            }
+        }
+
+        #quiz-namereveal {
+            display: none;
+            animation: nameReveal 1s ease 0s 1 forwards;
+        }
+
+        @media only screen and (min-width:v.$lg){
+            font-size: 24px;
+        }
+    }
+
+    &__bottomcontainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 20px;
+        gap: 10px;
+
+        &__button {
+            border: 2px solid black;
+            border-radius: 8px;
+            padding: 10px 20px 10px 20px;
+            font-size: 20px;
+
+            &--confetti {
+                display: none;
+            }
+
+            &--changequote {
+                padding: 10px 12px;
+            }
+
+            svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            @media only screen and (min-width:v.$lg){
+                font-size: 24px;
+
+                svg {
+                    width: 34px;
+                    height: 34px;
+                }
+            }
+        }
+    }
+}
+
+
+.speluitleg {
+    position: relative;
+    width: calc(100vw - v.$margin-mobile * 2);
+    background-color: white;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 40px;
+
+    @media only screen and (min-width:v.$md){
+        width: 80vw;
+    }
+
+    @media only screen and (min-width:v.$lg){
+        width: 800px;
+        padding: 40px;
+    }
+
+    &__title {
+        background-color: white;
+        padding: 10px 40px;
+        border-radius: 16px;
+        font-size: 20px;
+
+        @media only screen and (min-width:v.$lg){
+            font-size: 24px;
+        }
+    }
+
+    &__text {
+        width: 100%;
+        font-size: 18px;
+
+        @media only screen and (min-width:v.$lg){
+            font-size: 24px;
+        }
+    }
+
+    &__container {
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        div {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            max-width: 100%;
+        }
+
+        &__button {
+            text-decoration: underline;
+            font-size: 18px;
+            cursor: pointer;
+
+            @media only screen and (min-width:v.$lg){
+                font-size: 20px;
+            }
+        }
+    }
+}

@@ -10,6 +10,14 @@ Route::get('/', AllQuotes::class);
 
 Route::get('/favorieten', FavQuotes::class);
 
+Route::get('/quizmode', function () {
+    $quotes = Quote::inRandomOrder()->get();
+
+    return view('quizmode', [
+        'quotes' => $quotes
+    ]);
+});
+
 Route::post('/', function () {
 
     request()->validate([
