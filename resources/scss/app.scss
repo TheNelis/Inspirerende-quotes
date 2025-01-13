@@ -1,5 +1,15 @@
 @use "resources/scss/variables.scss" as v;
 
+// Swup animations
+.transition-content {
+    transition: 0.5s;
+}
+
+html.is-animating .transition-content {
+    transform: translateY(50%);
+    opacity: 0;
+}
+
 * {
     font-family: "Poppins", Verdana, Tahoma, sans-serif;
     margin: 0;

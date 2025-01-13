@@ -1,19 +1,20 @@
 <x-layout>
-<div class="maincontainer">
+<div id="swup" class="maincontainer">
     <div class="navcontainer">
-        <div class="navcontainer__flexcontainer">
+        <div id="swup" class="navcontainer__flexcontainer transition-out_left">
             <div class="navcontainer__boards">
                 <a href="/">Mijn boards</a>
             </div>
         </div>
         <div class="navcontainer__flexcontainer navcontainer__flexcontainer--title">
-            <div class="navcontainer__titlecontainer navcontainer__titlecontainer--quizmode">
+            <div class="navcontainer__titlecontainer">
                 <h1 class="navcontainer__titlecontainer__komma">“</h1>
                 <h1 class="navcontainer__titlecontainer__boardtitle">Kaasfabriek</h1>
                 <h1 class="navcontainer__titlecontainer__komma">”</h1>
+                <h2 id="swup" class="navcontainer__titlecontainer--quiztitle navcontainer__titlecontainer--quiztitle--quizmode transition-quiztitle">Quizmode</h2>
             </div>
         </div>
-        <div class="navcontainer__flexcontainer navcontainer__flexcontainer--right">
+        <div id="swup" class="navcontainer__flexcontainer navcontainer__flexcontainer--right transition-out_right">
             <a href="/" class="navcontainer__quizbuttoncontainer navcontainer__quizbuttoncontainer--quizmode">
                 <svg fill="#000000" width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g data-name="Layer 2"><g data-name="arrow-back"><rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"/>
                     <path d="M19 11H7.14l3.63-4.36a1 1 0 1 0-1.54-1.28l-5 6a1.19 1.19 0 0 0-.09.15c0 .05 0 .08-.07.13A1 1 0 0 0 4 12a1 1 0 0 0 .07.36c0 .05 0 .08.07.13a1.19 1.19 0 0 0 .09.15l5 6A1 1 0 0 0 10 19a1 1 0 0 0 .64-.23 1 1 0 0 0 .13-1.41L7.14 13H19a1 1 0 0 0 0-2z"/></g></g>
@@ -26,7 +27,7 @@
         </div>
     </div>
 
-    <div class="quizcontainer">
+    <div id="swup" class="quizcontainer transition-content">
         @if ($quotes[0])
         <div class="quizcard">
             <div>
@@ -40,11 +41,11 @@
                 </div>
             </div>
             <div class="quizcard__bottomcontainer">
-                <button onclick="jsConfetti.addConfetti();" id="confetti-button" class="quizcard__bottomcontainer__button quizcard__bottomcontainer__button--confetti">🎉MEER CONFETTI🎉</button>
+                <button onclick="new JSConfetti().addConfetti();" id="confetti-button" class="quizcard__bottomcontainer__button quizcard__bottomcontainer__button--confetti">🎉MEER CONFETTI🎉</button>
                 <button onclick="window.location.reload();" id='changeQuote-button' class="quizcard__bottomcontainer__button quizcard__bottomcontainer__button--changequote">
                     <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none"><path d="M20.5 15C18.9558 18.0448 15.7622 21 12 21C7.14776 21 3.58529 17.5101 3 13" stroke="#000" stroke-width="2" stroke-linecap="round"/><path d="M3.5 9C4.89106 5.64934 8.0647 3 12 3C16.7819 3 20.4232 6.48993 21 11" stroke="#000" stroke-width="2" stroke-linecap="round"/><path d="M21 21L21 15.6C21 15.2686 20.7314 15 20.4 15V15L15 15" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 9L3.6 9V9C3.26863 9 3 8.73137 3 8.4L3 3" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
-                <button onclick="revealName(); jsConfetti.addConfetti();" id="reveal-button" class="quizcard__bottomcontainer__button">Reveal</button>
+                <button onclick="revealName(); new JSConfetti().addConfetti();" id="reveal-button" class="quizcard__bottomcontainer__button">Reveal</button>
             </div>
         </div>
         @else
@@ -77,36 +78,3 @@
 
 </div>
 </x-layout>
-
-
-<script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-<script>
-    const jsConfetti = new JSConfetti();
-
-    window.addEventListener('mouseup', function(event) {
-        const speluitleg = document.getElementById('speluitleg');
-
-        if(speluitleg.parentNode.style.display != 'none' && event.target != speluitleg && event.target.parentNode != speluitleg && event.target.parentNode.parentNode != speluitleg && event.target.parentNode.parentNode.parentNode != speluitleg){
-            speluitleg.parentNode.style.display = 'none';
-        }
-    });
-
-    //Quizmode logic
-    const changeQuoteButton = document.getElementById('changeQuote-button');
-    const revealButton = document.getElementById('reveal-button');
-    const confettiButton = document.getElementById('confetti-button');
-    const name = document.getElementById('quiz-name');
-    const namereveal = document.getElementById('quiz-namereveal');
-
-    namereveal.style.display = 'none';
-
-    function revealName() {
-        name.style.display = 'none';
-        namereveal.style.display = 'block';
-
-        revealButton.style.display = 'none';
-        confettiButton.style.display = 'block';
-        changeQuoteButton.innerHTML = 'Volgende quote';
-    }
-
-</script>
