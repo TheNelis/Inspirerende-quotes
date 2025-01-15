@@ -16,13 +16,13 @@ class FavQuotes extends Component
     public function render()
     {
         if(!$this->q){
-            $quotes = Quote::where('favourite', 1)->latest()->paginate($this->pagination);
+            $quotes = Quote::where('favourite', 1)->latest()->paginate($this->pagination); // wordt where boardCode == {boardCode} && favourite
         }else{
-            $quotes = Quote::where('favourite', 1)->where('quote','like','%'.$this->q.'%')
-                            ->latest()->paginate($this->pagination);
+            $quotes = Quote::where('favourite', 1)->where('quote','like','%'.$this->q.'%') 
+                            ->latest()->paginate($this->pagination); // wordt where boardCode == {boardCode} && favourite && like zoekresultaat
         }
 
-        $personen = Name::all();
+        $personen = Name::all(); // wordt where boardCode == {boardCode}
 
         return view('board', [
             'quotes' => $quotes,

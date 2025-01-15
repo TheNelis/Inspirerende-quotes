@@ -1,16 +1,19 @@
 <?php
 
+use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Quote;
 use App\Models\Name;
 use App\Livewire\AllQuotes;
 use App\Livewire\FavQuotes;
 
-Route::get('/', AllQuotes::class);
 
-Route::get('/favorieten', FavQuotes::class);
+Route::get('/', AllQuotes::class);  // wordt '/{boardCode}', check if user has boardCode
 
-Route::get('/quizmode', function () {
+Route::get('/favorieten', FavQuotes::class); // wordt '/{boardCode}/favorieten', check if user has boardCode
+
+Route::get('/quizmode', function () { // wordt '/{boardCode}/quizmode', check if user has boardCode
     $quotes = Quote::inRandomOrder()->get();
 
     return view('quizmode', [
@@ -18,7 +21,7 @@ Route::get('/quizmode', function () {
     ]);
 });
 
-Route::post('/', function () {
+Route::post('/', function () {  // wordt '/{boardCode}', check if user has boardCode
 
     request()->validate([
         'newname' => ['max:12'],
@@ -44,10 +47,10 @@ Route::post('/', function () {
         'favourite' => false
     ]);
 
-    return redirect('/');
+    return redirect('/'); // wordt '/{boardCode}'
 });
 
-Route::patch('/', function () {
+Route::patch('/', function () { // wordt '/{boardCode}', check if user has boardCode
 
     request()->validate([
         'newname' => ['max:12'],
@@ -71,13 +74,20 @@ Route::patch('/', function () {
         'favourite' => request('favourite')
     ]);
 
-    return redirect('/');
+    return redirect('/'); // wordt '/{boardCode}'
 });
 
-Route::delete('/', function () {
+Route::delete('/', function () { // wordt '/{boardCode}', check if user has boardCode
 
     $quote = Quote::findOrFail(request('id'));
     $quote->delete();
     
-    return redirect('/');
+    return redirect('/'); // wordt '/{boardCode}'
 });
+
+
+Route::get('/register', [RegisteredUserController::class, 'create']);
+Route::post('/register', [RegisteredUserController::class, 'store']);
+
+Route::get('/login', [SessionController::class, 'create']);
+Route::post('/login', [SessionController::class, 'store']);

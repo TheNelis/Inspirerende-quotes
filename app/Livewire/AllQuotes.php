@@ -16,13 +16,13 @@ class AllQuotes extends Component
     public function render()
     {
         if(!$this->q){
-            $quotes = Quote::latest()->paginate($this->pagination);
+            $quotes = Quote::latest()->paginate($this->pagination); // wordt where boardCode == {boardCode}
         }else{
-            $quotes = Quote::where('quote','like','%'.$this->q.'%')
+            $quotes = Quote::where('quote','like','%'.$this->q.'%') // wordt where boardCode == {boardCode} && like zoekresultaat
                             ->latest()->paginate($this->pagination);
         }
 
-        $personen = Name::all();
+        $personen = Name::all(); // wordt where boardCode == {boardCode}
 
         return view('board', [
             'quotes' => $quotes,

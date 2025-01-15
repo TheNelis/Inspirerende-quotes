@@ -1,0 +1,107 @@
+@use "resources/scss/variables.scss" as v;
+
+// Swup animations
+.transition-authform {
+    transition: 0.5s;
+}
+
+html.is-animating .transition-authform {
+    transform: translateY(50%);
+    opacity: 0;
+}
+
+
+.auth-form {
+    &__terug {
+        position: absolute;
+        top: 20px;
+        left: v.$margin-mobile;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 18px;
+        cursor: pointer;
+
+        svg {
+            transition: all .3s ease-in-out;
+        }
+
+        &:hover {
+            svg {
+                margin: 0 5px 0 -5px;
+            }
+        }
+
+        @media only screen and (min-width:v.$lg){
+            font-size: 20px;
+            left: v.$margin-desktop;
+        }
+    }
+
+    &__container {
+        width: 500px;
+        margin: v.$margin-mobile;
+        border-radius: 16px;
+        border: 2px solid black;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    &__title {
+        width: 100%;
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: bold;
+        font-size: 36px;
+    }
+
+    &__form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &__label {
+        font-size: 20px;
+    }
+
+    &__input {
+        width: 100%;
+        border: 2px solid black;
+        border-radius: 8px;
+        padding: 10px 20px 10px 20px;
+        font-size: 20px;
+    }
+
+    &__buttoncontainer {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        &__submit {
+            background-color: v.$yellowdark;
+            width: 100%;
+            border: 2px solid black;
+            border-radius: 8px;
+            padding: 10px 20px 10px 20px;
+            font-size: 20px;
+
+            @media only screen and (min-width:v.$md){
+                width: auto;
+            }
+        }
+
+        &__altbutton {
+            font-size: 16px;
+
+            a {
+                text-decoration: underline;
+            }
+        }
+    }
+}
