@@ -9,11 +9,17 @@ use App\Livewire\AllQuotes;
 use App\Livewire\FavQuotes;
 
 
-Route::get('/', AllQuotes::class);  // wordt '/{boardCode}', check if user has boardCode
+Route::get('/', function() {
 
-Route::get('/favorieten', FavQuotes::class); // wordt '/{boardCode}/favorieten', check if user has boardCode
+    return view('boards');
+});
 
-Route::get('/quizmode', function () { // wordt '/{boardCode}/quizmode', check if user has boardCode
+
+Route::get('/board', AllQuotes::class);  // wordt '/{boardCode}', check if user has boardCode
+
+Route::get('/board/favorieten', FavQuotes::class); // wordt '/{boardCode}/favorieten', check if user has boardCode
+
+Route::get('/board/quizmode', function () { // wordt '/{boardCode}/quizmode', check if user has boardCode
     $quotes = Quote::inRandomOrder()->get();
 
     return view('quizmode', [
@@ -21,7 +27,7 @@ Route::get('/quizmode', function () { // wordt '/{boardCode}/quizmode', check if
     ]);
 });
 
-Route::post('/', function () {  // wordt '/{boardCode}', check if user has boardCode
+Route::post('/board', function () {  // wordt '/{boardCode}', check if user has boardCode
 
     request()->validate([
         'newname' => ['max:12'],
@@ -47,10 +53,10 @@ Route::post('/', function () {  // wordt '/{boardCode}', check if user has board
         'favourite' => false
     ]);
 
-    return redirect('/'); // wordt '/{boardCode}'
+    return redirect('/board'); // wordt '/{boardCode}'
 });
 
-Route::patch('/', function () { // wordt '/{boardCode}', check if user has boardCode
+Route::patch('/board', function () { // wordt '/{boardCode}', check if user has boardCode
 
     request()->validate([
         'newname' => ['max:12'],
@@ -74,15 +80,15 @@ Route::patch('/', function () { // wordt '/{boardCode}', check if user has board
         'favourite' => request('favourite')
     ]);
 
-    return redirect('/'); // wordt '/{boardCode}'
+    return redirect('/board'); // wordt '/{boardCode}'
 });
 
-Route::delete('/', function () { // wordt '/{boardCode}', check if user has boardCode
+Route::delete('/board', function () { // wordt '/{boardCode}', check if user has boardCode
 
     $quote = Quote::findOrFail(request('id'));
     $quote->delete();
     
-    return redirect('/'); // wordt '/{boardCode}'
+    return redirect('/board'); // wordt '/{boardCode}'
 });
 
 

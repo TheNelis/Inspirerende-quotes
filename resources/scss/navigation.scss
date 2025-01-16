@@ -13,6 +13,14 @@ html.is-animating .transition-out_right {
     transform: translateX(120%);
 }
 
+.transition-title {
+    transition: 0.5s;
+}
+
+html.is-animating .transition-title {
+    transform: translateY(-200%);
+}
+
 .transition-quiztitle {
     transition: 0.5s;
     transform: scale(1);
@@ -154,7 +162,7 @@ html.is-animating .transition-quiztitle {
             color: black;
             text-transform: uppercase;
             text-align: center;
-            line-height: 100%;
+            line-height: 70%;
             
             @media only screen and (min-width:v.$lg){
                 max-width: 50vw;
@@ -163,7 +171,7 @@ html.is-animating .transition-quiztitle {
 
         &__komma {
             color: v.$yellowdark;
-            margin-top: -1.7vw;
+            line-height: 70%;
         }
     }
 
@@ -213,6 +221,18 @@ html.is-animating .transition-quiztitle {
                 gap: 5px;
                 padding: 5px 20px 5px 11px;
             }
+        }
+    }
+
+    &__profilecontainer {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        img {
+            width: 40px;
+            object-fit: cover;
+            border-radius: 100px;
         }
     }
 }

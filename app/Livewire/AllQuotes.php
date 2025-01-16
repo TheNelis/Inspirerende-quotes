@@ -24,7 +24,7 @@ class AllQuotes extends Component
 
         $personen = Name::all(); // wordt where boardCode == {boardCode}
 
-        return view('board', [
+        return view('quoteboard', [
             'quotes' => $quotes,
             'personen' => $personen
         ]);

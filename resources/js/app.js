@@ -13,7 +13,7 @@ function init() {
 function loadScripts() {
     // Quoteboard ---------------------------------------------------------------------------------------------
 
-    if (window.location.pathname === '/') {
+    if (document.getElementsByClassName('quotecontainer')) {
         addQuoteForm.parentNode.style.display = 'none';
         bekijkQuote.parentNode.style.display = 'none';
         bewerkQuote.parentNode.style.display = 'none';
@@ -119,7 +119,7 @@ function loadScripts() {
 
     // Quizmode ---------------------------------------------------------------------------------------------
 
-    if (window.location.pathname === "/quizmode") {
+    if (document.getElementsByClassName('quizcontainer')) {
 
         window.addEventListener('mouseup', function(event) {
             const speluitleg = document.getElementById('speluitleg');

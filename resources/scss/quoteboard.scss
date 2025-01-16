@@ -24,7 +24,7 @@ html.is-animating .transition-content {
     }
 
     &--auth {
-        height: 100vh;
+        height: 74.5vh;
         display: flex;
         margin-top: 12vh;
         align-items: flex-start;
@@ -142,11 +142,41 @@ html.is-animating .transition-content {
     }
 }
 
+.statuscontainer {
+    width: 100%;
+
+    h1 {
+        justify-self: center;
+    }
+
+    &__logincontainer {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        &__button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 10px 5px 10px;
+            height: min-content;
+            border: 2px solid black;
+
+            @media only screen and (min-width:v.$lg){
+                gap: 15px;
+                padding: 5px 20px 5px 20px;
+            }
+        }
+    }
+}
+
 .quotescontainer {
     margin-top: v.$margin-desktop;
     display: flex;
-    gap: 10px;
     flex-direction: column;
+    gap: 10px;
     margin-top: 20px;
     min-height: 300px;
 
@@ -155,14 +185,6 @@ html.is-animating .transition-content {
         flex-wrap: wrap;
         margin: 40px 0 120px 0;
         gap: 20px;
-    }
-
-    .statuscontainer {
-        width: 100%;
-    }
-
-    .statuscontainer > h1 {
-        justify-self: center;
     }
 }
 

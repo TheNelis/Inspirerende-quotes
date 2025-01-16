@@ -14,16 +14,6 @@
 	}
 }
 
-// Swup animations
-.transition-title {
-    transition: 1s;
-}
-
-html.is-animating .transition-title {
-    transform: scale(0.6);
-}
-
-
 .quizcontainer {
     height: 65vh;
     display: flex;
