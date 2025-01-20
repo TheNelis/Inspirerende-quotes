@@ -7,18 +7,28 @@
                 <h1 class="navcontainer__titlecontainer__boardtitle">Mijn boards</h1>
             </div>
         </div>
-        {{-- als ingelogd --}}
-        <div id="swup" class="navcontainer__flexcontainer navcontainer__flexcontainer--right transition-out_right">
-            <div class="navcontainer__profilecontainer">
-                <p>Niels Hos</p>
-                <img src="https://fakeimg.pl/400x400" alt="avatar">
+        @auth
+            <div id="swup" class="navcontainer__flexcontainer navcontainer__flexcontainer--right transition-out_right">
+                <button onClick="toggleProfileMenu()" class="navcontainer__profilecontainer">
+                    <p>Niels Hos</p>
+                    <svg id='dropdown-svg' xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="16" height="16" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 298.04"><path fill-rule="nonzero" d="M12.08 70.78c-16.17-16.24-16.09-42.54.15-58.7 16.25-16.17 42.54-16.09 58.71.15L256 197.76 441.06 12.23c16.17-16.24 42.46-16.32 58.71-.15 16.24 16.16 16.32 42.46.15 58.7L285.27 285.96c-16.24 16.17-42.54 16.09-58.7-.15L12.08 70.78z"/></svg>
+                </button>
+                <ul id='profile-menu' class="navcontainer__profilecontainer__menu">
+                    <li class="navcontainer__profilecontainer__menu__item"><a href="/profile">Profiel</a></li>
+                    <li class="navcontainer__profilecontainer__menu__item">
+                        <form method="POST" action="/logout">
+                            @csrf
+                            <button type="submit">Uitloggen</button>
+                        </form>
+                    </li>
+                </ul>
             </div>
-        </div>
-        {{-- else --}}
-            {{-- <div id="swup" class="navcontainer__flexcontainer navcontainer__flexcontainer--right transition-out_right">
+        @endauth
+        @guest
+            <div id="swup" class="navcontainer__flexcontainer navcontainer__flexcontainer--right transition-out_right">
                 <a href="/login" class="navcontainer__quizbuttoncontainer">Inloggen</a>
-            </div> --}}
-        {{-- endif --}}
+            </div>
+        @endguest
     </div>
 
     <div id="swup" class="transition-content">
@@ -34,113 +44,34 @@
             <x-filterbutton filtertype="button" onClick="document.getElementById('addQuoteForm').parentNode.style.display='flex'">Board aanmaken</x-filterbutton>
         </section>
 
-        <section class="boardscontainer">
-            {{-- Als ingelogd --}}
+        <section id='boardscontainer' class="boardscontainer">
+            @auth
                 {{-- Als er boards zijn --}}
                     {{-- foreach board --}}
-                        <div class="boardcard">
-                            <img src="https://fakeimg.pl/400x400" alt="board-image">
-                            <div class="boardcard__infocontainer">
-                                <div class="boardcard__infocontainer__container">
-                                    <h3 class="boardcard__title">
-                                        <span class="boardcard__title__komma">“</span>Kaasfabriek<span class="boardcard__title__komma">”</span>
-                                    </h3>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none"><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-6 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm12 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="#000"/></svg>
-                                </div>
-                                <div class="boardcard__infocontainer__container">
-                                    <div class="boardcard__infocontainer__container__detail">
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="800px" width="800px" version="1.1" id="_x32_" viewBox="0 0 512 512" xml:space="preserve"><g><path fill="#000" d="M458.159,404.216c-18.93-33.65-49.934-71.764-100.409-93.431c-28.868,20.196-63.938,32.087-101.745,32.087   c-37.828,0-72.898-11.89-101.767-32.087c-50.474,21.667-81.479,59.782-100.398,93.431C28.731,448.848,48.417,512,91.842,512   c43.426,0,164.164,0,164.164,0s120.726,0,164.153,0C463.583,512,483.269,448.848,458.159,404.216z"/><path fill="#000" d="M256.005,300.641c74.144,0,134.231-60.108,134.231-134.242v-32.158C390.236,60.108,330.149,0,256.005,0   c-74.155,0-134.252,60.108-134.252,134.242V166.4C121.753,240.533,181.851,300.641,256.005,300.641z"/></g></svg>
-                                        <p>8</p>
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="800px" width="800px" version="1.1" id="_x32_" viewBox="0 0 512 512" xml:space="preserve"><g><path fill="#000" d="M148.57,63.619H72.162C32.31,63.619,0,95.929,0,135.781v76.408c0,39.852,32.31,72.161,72.162,72.161h7.559   c6.338,0,12.275,3.128,15.87,8.362c3.579,5.234,4.365,11.898,2.074,17.811L54.568,422.208c-2.291,5.92-1.505,12.584,2.074,17.81   c3.595,5.234,9.532,8.362,15.87,8.362h50.738c7.157,0,13.73-3.981,17.041-10.318l61.257-117.03   c12.609-24.09,19.198-50.881,19.198-78.072v-107.18C220.748,95.929,188.422,63.619,148.57,63.619z"/><path fill="#000" d="M439.84,63.619h-76.41c-39.852,0-72.16,32.31-72.16,72.162v76.408c0,39.852,32.309,72.161,72.16,72.161h7.543   c6.338,0,12.291,3.128,15.87,8.362c3.596,5.234,4.365,11.898,2.091,17.811l-43.113,111.686c-2.291,5.92-1.505,12.584,2.09,17.81   c3.579,5.234,9.516,8.362,15.871,8.362h50.722c7.157,0,13.73-3.981,17.058-10.318l61.24-117.03   C505.411,296.942,512,270.152,512,242.96v-107.18C512,95.929,479.691,63.619,439.84,63.619z"/></g></svg>
-                                        <p>87</p>
-                                    </div>
-                                    <a href="/board" class="boardcard__infocontainer__container__bekijk">Bekijk</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="boardcard">
-                            <img src="https://fakeimg.pl/400x400" alt="board-image">
-                            <div class="boardcard__infocontainer">
-                                <div class="boardcard__infocontainer__container">
-                                    <h3 class="boardcard__title">
-                                        <span class="boardcard__title__komma">“</span>Kaasfabriek<span class="boardcard__title__komma">”</span>
-                                    </h3>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none"><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-6 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm12 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="#000"/></svg>
-                                </div>
-                                <div class="boardcard__infocontainer__container">
-                                    <div class="boardcard__infocontainer__container__detail">
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="800px" width="800px" version="1.1" id="_x32_" viewBox="0 0 512 512" xml:space="preserve"><g><path fill="#000" d="M458.159,404.216c-18.93-33.65-49.934-71.764-100.409-93.431c-28.868,20.196-63.938,32.087-101.745,32.087   c-37.828,0-72.898-11.89-101.767-32.087c-50.474,21.667-81.479,59.782-100.398,93.431C28.731,448.848,48.417,512,91.842,512   c43.426,0,164.164,0,164.164,0s120.726,0,164.153,0C463.583,512,483.269,448.848,458.159,404.216z"/><path fill="#000" d="M256.005,300.641c74.144,0,134.231-60.108,134.231-134.242v-32.158C390.236,60.108,330.149,0,256.005,0   c-74.155,0-134.252,60.108-134.252,134.242V166.4C121.753,240.533,181.851,300.641,256.005,300.641z"/></g></svg>
-                                        <p>8</p>
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="800px" width="800px" version="1.1" id="_x32_" viewBox="0 0 512 512" xml:space="preserve"><g><path fill="#000" d="M148.57,63.619H72.162C32.31,63.619,0,95.929,0,135.781v76.408c0,39.852,32.31,72.161,72.162,72.161h7.559   c6.338,0,12.275,3.128,15.87,8.362c3.579,5.234,4.365,11.898,2.074,17.811L54.568,422.208c-2.291,5.92-1.505,12.584,2.074,17.81   c3.595,5.234,9.532,8.362,15.87,8.362h50.738c7.157,0,13.73-3.981,17.041-10.318l61.257-117.03   c12.609-24.09,19.198-50.881,19.198-78.072v-107.18C220.748,95.929,188.422,63.619,148.57,63.619z"/><path fill="#000" d="M439.84,63.619h-76.41c-39.852,0-72.16,32.31-72.16,72.162v76.408c0,39.852,32.309,72.161,72.16,72.161h7.543   c6.338,0,12.291,3.128,15.87,8.362c3.596,5.234,4.365,11.898,2.091,17.811l-43.113,111.686c-2.291,5.92-1.505,12.584,2.09,17.81   c3.579,5.234,9.516,8.362,15.871,8.362h50.722c7.157,0,13.73-3.981,17.058-10.318l61.24-117.03   C505.411,296.942,512,270.152,512,242.96v-107.18C512,95.929,479.691,63.619,439.84,63.619z"/></g></svg>
-                                        <p>87</p>
-                                    </div>
-                                    <a href="/board" class="boardcard__infocontainer__container__bekijk">Bekijk</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="boardcard">
-                            <img src="https://fakeimg.pl/400x400" alt="board-image">
-                            <div class="boardcard__infocontainer">
-                                <div class="boardcard__infocontainer__container">
-                                    <h3 class="boardcard__title">
-                                        <span class="boardcard__title__komma">“</span>Kaasfabriek<span class="boardcard__title__komma">”</span>
-                                    </h3>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none"><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-6 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm12 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="#000"/></svg>
-                                </div>
-                                <div class="boardcard__infocontainer__container">
-                                    <div class="boardcard__infocontainer__container__detail">
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="800px" width="800px" version="1.1" id="_x32_" viewBox="0 0 512 512" xml:space="preserve"><g><path fill="#000" d="M458.159,404.216c-18.93-33.65-49.934-71.764-100.409-93.431c-28.868,20.196-63.938,32.087-101.745,32.087   c-37.828,0-72.898-11.89-101.767-32.087c-50.474,21.667-81.479,59.782-100.398,93.431C28.731,448.848,48.417,512,91.842,512   c43.426,0,164.164,0,164.164,0s120.726,0,164.153,0C463.583,512,483.269,448.848,458.159,404.216z"/><path fill="#000" d="M256.005,300.641c74.144,0,134.231-60.108,134.231-134.242v-32.158C390.236,60.108,330.149,0,256.005,0   c-74.155,0-134.252,60.108-134.252,134.242V166.4C121.753,240.533,181.851,300.641,256.005,300.641z"/></g></svg>
-                                        <p>8</p>
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="800px" width="800px" version="1.1" id="_x32_" viewBox="0 0 512 512" xml:space="preserve"><g><path fill="#000" d="M148.57,63.619H72.162C32.31,63.619,0,95.929,0,135.781v76.408c0,39.852,32.31,72.161,72.162,72.161h7.559   c6.338,0,12.275,3.128,15.87,8.362c3.579,5.234,4.365,11.898,2.074,17.811L54.568,422.208c-2.291,5.92-1.505,12.584,2.074,17.81   c3.595,5.234,9.532,8.362,15.87,8.362h50.738c7.157,0,13.73-3.981,17.041-10.318l61.257-117.03   c12.609-24.09,19.198-50.881,19.198-78.072v-107.18C220.748,95.929,188.422,63.619,148.57,63.619z"/><path fill="#000" d="M439.84,63.619h-76.41c-39.852,0-72.16,32.31-72.16,72.162v76.408c0,39.852,32.309,72.161,72.16,72.161h7.543   c6.338,0,12.291,3.128,15.87,8.362c3.596,5.234,4.365,11.898,2.091,17.811l-43.113,111.686c-2.291,5.92-1.505,12.584,2.09,17.81   c3.579,5.234,9.516,8.362,15.871,8.362h50.722c7.157,0,13.73-3.981,17.058-10.318l61.24-117.03   C505.411,296.942,512,270.152,512,242.96v-107.18C512,95.929,479.691,63.619,439.84,63.619z"/></g></svg>
-                                        <p>87</p>
-                                    </div>
-                                    <a href="/board" class="boardcard__infocontainer__container__bekijk">Bekijk</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="boardcard">
-                            <img src="https://fakeimg.pl/400x400" alt="board-image">
-                            <div class="boardcard__infocontainer">
-                                <div class="boardcard__infocontainer__container">
-                                    <h3 class="boardcard__title">
-                                        <span class="boardcard__title__komma">“</span>Kaasfabriek<span class="boardcard__title__komma">”</span>
-                                    </h3>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none"><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-6 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm12 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="#000"/></svg>
-                                </div>
-                                <div class="boardcard__infocontainer__container">
-                                    <div class="boardcard__infocontainer__container__detail">
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="800px" width="800px" version="1.1" id="_x32_" viewBox="0 0 512 512" xml:space="preserve"><g><path fill="#000" d="M458.159,404.216c-18.93-33.65-49.934-71.764-100.409-93.431c-28.868,20.196-63.938,32.087-101.745,32.087   c-37.828,0-72.898-11.89-101.767-32.087c-50.474,21.667-81.479,59.782-100.398,93.431C28.731,448.848,48.417,512,91.842,512   c43.426,0,164.164,0,164.164,0s120.726,0,164.153,0C463.583,512,483.269,448.848,458.159,404.216z"/><path fill="#000" d="M256.005,300.641c74.144,0,134.231-60.108,134.231-134.242v-32.158C390.236,60.108,330.149,0,256.005,0   c-74.155,0-134.252,60.108-134.252,134.242V166.4C121.753,240.533,181.851,300.641,256.005,300.641z"/></g></svg>
-                                        <p>8</p>
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="800px" width="800px" version="1.1" id="_x32_" viewBox="0 0 512 512" xml:space="preserve"><g><path fill="#000" d="M148.57,63.619H72.162C32.31,63.619,0,95.929,0,135.781v76.408c0,39.852,32.31,72.161,72.162,72.161h7.559   c6.338,0,12.275,3.128,15.87,8.362c3.579,5.234,4.365,11.898,2.074,17.811L54.568,422.208c-2.291,5.92-1.505,12.584,2.074,17.81   c3.595,5.234,9.532,8.362,15.87,8.362h50.738c7.157,0,13.73-3.981,17.041-10.318l61.257-117.03   c12.609-24.09,19.198-50.881,19.198-78.072v-107.18C220.748,95.929,188.422,63.619,148.57,63.619z"/><path fill="#000" d="M439.84,63.619h-76.41c-39.852,0-72.16,32.31-72.16,72.162v76.408c0,39.852,32.309,72.161,72.16,72.161h7.543   c6.338,0,12.291,3.128,15.87,8.362c3.596,5.234,4.365,11.898,2.091,17.811l-43.113,111.686c-2.291,5.92-1.505,12.584,2.09,17.81   c3.579,5.234,9.516,8.362,15.871,8.362h50.722c7.157,0,13.73-3.981,17.058-10.318l61.24-117.03   C505.411,296.942,512,270.152,512,242.96v-107.18C512,95.929,479.691,63.619,439.84,63.619z"/></g></svg>
-                                        <p>87</p>
-                                    </div>
-                                    <a href="/board" class="boardcard__infocontainer__container__bekijk">Bekijk</a>
-                                </div>
-                            </div>
-                        </div>
+                        <x-boardcard boardcode='board' boardtitle='Kaasfabriek' leden='8' quotes='87' pinned='false'></x-boardcard>
                     {{-- endforeach --}}
                 {{-- else --}}
                     {{-- <div class="statuscontainer">
                         <h1>Geen boards gevonden</h1>
                     </div> --}}
                 {{-- endif --}}
-
-            {{-- else --}}
-                {{-- <div class="statuscontainer">
+            @endauth
+            @guest
+                <div class="statuscontainer">
                     <h1>Geen boards gevonden</h1>
                     <div class="statuscontainer__logincontainer">
                         <a href="/login" class="statuscontainer__logincontainer__button">Log in</a>
                         <p>of</p>
                         <a href="/register" class="statuscontainer__logincontainer__button">Registreer</a>
                     </div>
-                </div> --}}
-            {{-- endig --}}
+                </div>
+            @endguest
         </section>
     </div>
 
-    {{-- Quote toevoegen --}}
+    {{-- Board aanmaken --}}
     <div class="darkbackground">
-        <h2 class="addquoteform__title">Quote toevoegen</h2>
+        <h2 class="addquoteform__title">Board aanmaken</h2>
         <form method="POST" action="/board" class="addquoteform" id="addQuoteForm">
             @csrf
 

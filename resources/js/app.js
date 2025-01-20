@@ -13,7 +13,7 @@ function init() {
 function loadScripts() {
     // Quoteboard ---------------------------------------------------------------------------------------------
 
-    if (document.getElementsByClassName('quotecontainer')) {
+    if (document.getElementById('quotescontainer')) {
         addQuoteForm.parentNode.style.display = 'none';
         bekijkQuote.parentNode.style.display = 'none';
         bewerkQuote.parentNode.style.display = 'none';
@@ -119,7 +119,7 @@ function loadScripts() {
 
     // Quizmode ---------------------------------------------------------------------------------------------
 
-    if (document.getElementsByClassName('quizcontainer')) {
+    if (document.getElementById('quizcontainer')) {
 
         window.addEventListener('mouseup', function(event) {
             const speluitleg = document.getElementById('speluitleg');
@@ -145,6 +145,29 @@ function loadScripts() {
             revealButton.style.display = 'none';
             confettiButton.style.display = 'block';
             changeQuoteButton.innerHTML = 'Volgende quote';
+        }
+    }
+
+
+    // Boards ---------------------------------------------------------------------------------------------
+    if (document.getElementById('boardscontainer')) {
+
+        let dropdownMenu = document.getElementById("profile-menu");
+        let dropdownSVG = document.getElementById("dropdown-svg");
+        let dropdownOpen = false;
+
+        window.toggleProfileMenu = function() {
+            dropdownOpen = !dropdownOpen;
+
+            if (dropdownOpen == true) {
+                dropdownSVG.style.transform = 'rotateZ(180deg)';
+                dropdownMenu.style.height = '105px';
+                dropdownMenu.style.opacity = '1';
+            } else {
+                dropdownSVG.style.transform = 'rotateZ(0deg)';
+                dropdownMenu.style.height = '0px';
+                dropdownMenu.style.opacity = '0';
+            }
         }
     }
 }

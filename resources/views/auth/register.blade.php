@@ -11,8 +11,8 @@
         <form method="POST" action="/register" class="auth-form__form">
             @csrf
             <div>
-                <label for="username" class="auth-form__label">Gebruikersnaam</label>
-                <input type="text" name="username" id="username" class="auth-form__input" required>
+                <label for="name" class="auth-form__label">Gebruikersnaam</label>
+                <input type="text" name="name" id="name" class="auth-form__input" required>
             </div>
             <div>
                 <label for="email" class="auth-form__label">E-mailadres</label>
@@ -24,7 +24,7 @@
             </div>
             <div>
                 <label for="password_confirmation" class="auth-form__label">Bevestig wachtwoord</label>
-                <input type="password_confirmation" name="password_confirmation" id="password_confirmation" class="auth-form__input" required>
+                <input type="password" name="password_confirmation" id="password_confirmation" class="auth-form__input" required>
             </div>
             <div class="auth-form__buttoncontainer">
                 <button type="submit" class="auth-form__buttoncontainer__submit">Registreer</button>
@@ -34,5 +34,12 @@
             </div>
         </form>
     </div>
+    @if($errors->any())
+        <ul class="errorlist">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
 </div>
 </x-layout>

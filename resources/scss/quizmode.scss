@@ -82,6 +82,10 @@
             padding: 10px 20px 10px 20px;
             font-size: 20px;
 
+            &:hover {
+                background-color: v.$yellow;
+            }
+
             &--confetti {
                 display: none;
             }

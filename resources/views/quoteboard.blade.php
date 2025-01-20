@@ -2,9 +2,9 @@
 <div id="swup" class="maincontainer">
     <div class="navcontainer">
         <div id="swup" class="navcontainer__flexcontainer transition-out_left">
-            <div class="navcontainer__boards">
-                <a href="/">Mijn boards</a>
-            </div>
+            <a href="/" class="navcontainer__boards">
+                Mijn boards
+            </a>
         </div>
         <div id="swup" class="navcontainer__flexcontainer navcontainer__flexcontainer--title transition-title">
             <div class="navcontainer__titlecontainer">
@@ -37,7 +37,7 @@
             <x-filterbutton filtertype="button" onClick="document.getElementById('addQuoteForm').parentNode.style.display='flex'">Voeg quote toe</x-filterbutton>
         </section>
 
-        <section class="quotescontainer">
+        <section id='quotescontainer' class="quotescontainer">
             @if($quotes[0])
                 @foreach ($quotes as $quote)
                     <x-quotecard id="quote{{ $quote->id }}" quoteId="{{ $quote->id }}" name="{{ $quote->name->name }}" date="{{ $quote->date }}" quote="{{ $quote->quote }}" favourite="{{ $quote->favourite }}"></x-quotecard>

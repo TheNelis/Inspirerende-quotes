@@ -8,7 +8,7 @@
     flex-direction: column;
     gap: 10px;
     margin-top: 20px;
-    min-height: 300px;
+    min-height: 45vh;
 
     @media only screen and (min-width:v.$lg){
         flex-direction: row;
@@ -41,7 +41,7 @@
     img {
         height: 150px;
         object-fit: cover;
-        border-radius: 8px 8px 0 0;
+        border-radius: 6px 6px 0 0;
     }
 
     &__infocontainer {
