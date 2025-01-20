@@ -152,6 +152,7 @@ html.is-animating .transition-content {
 
 .statuscontainer {
     width: 100%;
+    margin-top: 50px;
 
     h1 {
         justify-self: center;
@@ -171,7 +172,7 @@ html.is-animating .transition-content {
             padding: 5px 10px 5px 10px;
             height: min-content;
             border: 2px solid black;
-            font-size: 16px;
+            font-size: 18px;
 
             &:hover {
                 background-color: v.$yellow;

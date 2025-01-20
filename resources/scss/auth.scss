@@ -39,7 +39,6 @@ html.is-animating .transition-authform {
     }
 
     &__container {
-        width: 500px;
         margin: v.$margin-mobile;
         border-radius: 16px;
         border: 2px solid black;
@@ -48,6 +47,10 @@ html.is-animating .transition-authform {
         flex-direction: column;
         align-items: flex-start;
         gap: 20px;
+
+        @media only screen and (min-width:v.$lg){
+            width: 500px;
+        }
     }
 
     &__title {

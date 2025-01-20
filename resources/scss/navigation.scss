@@ -36,7 +36,7 @@ html.is-animating .transition-quiztitle {
     margin: 20px 0 30px 0;
     padding: 10px 0;
     display: flex;
-    font-size: 16px;
+    font-size: 18px;
     justify-content: space-between;
     flex-wrap: wrap;
 
@@ -121,14 +121,14 @@ html.is-animating .transition-quiztitle {
         font-weight: v.$bold;
         min-width: 100%;
         order: 3;
-        margin-top: 50px;
+        margin: 20px 0;
 
         @media only screen and (min-width:v.$md){
             font-size: 9vw;
         }
 
         @media only screen and (min-width:v.$lg){
-            margin-top: 10px;
+            margin: 10px 0;
             min-width: auto;
             line-break: anywhere;
             order: 2;

@@ -12,7 +12,7 @@
             @csrf
             <div>
                 <label for="email" class="auth-form__label">E-mailadres</label>
-                <input type="email" name="email" id="email" class="auth-form__input" required>
+                <input type="email" name="email" id="email" value="{{old('email')}}" class="auth-form__input" required>
             </div>
             <div>
                 <label for="password" class="auth-form__label">Wachtwoord</label>
