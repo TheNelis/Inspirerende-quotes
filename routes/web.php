@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BoardController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
@@ -8,22 +9,20 @@ use App\Models\Name;
 use App\Livewire\AllQuotes;
 use App\Livewire\FavQuotes;
 
-
-Route::get('/', function() {
-
-    return view('boards');
-});
+Route::get('/', [BoardController::class, 'showBoards']);
 
 
-Route::get('/board', AllQuotes::class);  // wordt '/{boardCode}', check if user has boardCode
+Route::get('/board={boardId}', AllQuotes::class);
 
-Route::get('/board/favorieten', FavQuotes::class); // wordt '/{boardCode}/favorieten', check if user has boardCode
+Route::get('/board={boardId}/favorieten', FavQuotes::class);
 
-Route::get('/board/quizmode', function () { // wordt '/{boardCode}/quizmode', check if user has boardCode
-    $quotes = Quote::inRandomOrder()->get();
+Route::get('/board={boardId}/quizmode', function ($boardId) {
+    $quotes = Quote::where('board_id', $boardId)
+        ->inRandomOrder()->get();
 
     return view('quizmode', [
-        'quotes' => $quotes
+        'quotes' => $quotes,
+        'boardId' => $boardId
     ]);
 });
 

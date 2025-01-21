@@ -16,4 +16,9 @@ class Quote extends Model {
     {
         return $this->belongsTo(Name::class);
     }
+
+    public function board()
+    {
+        return $this->belongsTo(Board::class);
+    }
 }

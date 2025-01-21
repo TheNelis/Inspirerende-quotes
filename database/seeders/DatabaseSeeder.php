@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Users aanmaken
-        $users = User::factory(2)->create();
+        $users = User::factory(15)->create();
 
         // Boards aanmaken
-        $boards = Board::factory(3)->create([
+        $boards = Board::factory(5)->create([
             'user_id' => fn() => $users->random()->id
         ]);
 

@@ -1,7 +1,7 @@
-@props(['boardcode' => 'board', 'pinned' => false, 'image' => 'https://plein8.com/wp-content/uploads/2024/09/placeholder-2-1.png', 'boardtitle' => 'Boardnaam', 'leden' => '0', 'quotes' => '0'])
+@props(['boardId' => null, 'pinned' => false, 'image' => 'https://plein8.com/wp-content/uploads/2024/09/placeholder-2-1.png', 'boardtitle' => 'Boardnaam', 'leden' => '0', 'quotes' => '0'])
 
 <div class="boardcard">
-    <img src="{{ $image }}" alt="board-image">
+    <img src="{{ $image ? $image : 'https://plein8.com/wp-content/uploads/2024/09/placeholder-2-1.png' }}" alt="board-image">
     <div class="boardcard__infocontainer">
         <div class="boardcard__infocontainer__container">
             <h3 class="boardcard__title">
@@ -16,7 +16,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="800px" width="800px" version="1.1" id="_x32_" viewBox="0 0 512 512" xml:space="preserve"><g><path fill="#000" d="M148.57,63.619H72.162C32.31,63.619,0,95.929,0,135.781v76.408c0,39.852,32.31,72.161,72.162,72.161h7.559   c6.338,0,12.275,3.128,15.87,8.362c3.579,5.234,4.365,11.898,2.074,17.811L54.568,422.208c-2.291,5.92-1.505,12.584,2.074,17.81   c3.595,5.234,9.532,8.362,15.87,8.362h50.738c7.157,0,13.73-3.981,17.041-10.318l61.257-117.03   c12.609-24.09,19.198-50.881,19.198-78.072v-107.18C220.748,95.929,188.422,63.619,148.57,63.619z"/><path fill="#000" d="M439.84,63.619h-76.41c-39.852,0-72.16,32.31-72.16,72.162v76.408c0,39.852,32.309,72.161,72.16,72.161h7.543   c6.338,0,12.291,3.128,15.87,8.362c3.596,5.234,4.365,11.898,2.091,17.811l-43.113,111.686c-2.291,5.92-1.505,12.584,2.09,17.81   c3.579,5.234,9.516,8.362,15.871,8.362h50.722c7.157,0,13.73-3.981,17.058-10.318l61.24-117.03   C505.411,296.942,512,270.152,512,242.96v-107.18C512,95.929,479.691,63.619,439.84,63.619z"/></g></svg>
                 <p>{{ $quotes }}</p>
             </div>
-            <a href="/{{ $boardcode }}" class="boardcard__infocontainer__container__bekijk">Bekijk</a>
+            <a href="/board={{ $boardId }}" class="boardcard__infocontainer__container__bekijk">Bekijk</a>
         </div>
     </div>
 </div>

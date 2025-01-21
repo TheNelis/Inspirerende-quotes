@@ -46,15 +46,15 @@
 
         <section id='boardscontainer' class="boardscontainer">
             @auth
-                {{-- Als er boards zijn --}}
-                    {{-- foreach board --}}
-                        <x-boardcard boardcode='board' boardtitle='Kaasfabriek' leden='8' quotes='87' pinned='false'></x-boardcard>
-                    {{-- endforeach --}}
-                {{-- else --}}
-                    {{-- <div class="statuscontainer">
+                @if(count($boards) > 0)
+                    @foreach($boards as $board)
+                        <x-boardcard boardId='{{$board->id}}' boardtitle='{{$board->title}}' image='{{$board->image}}' leden='{{$board->users_count}}' quotes='{{ $board->quotes_count }}' pinned='{{$board->pinned}}'></x-boardcard>
+                    @endforeach
+                @else
+                    <div class="statuscontainer">
                         <h1>Geen boards gevonden</h1>
-                    </div> --}}
-                {{-- endif --}}
+                    </div>
+                @endif
             @endauth
             @guest
                 <div class="statuscontainer">

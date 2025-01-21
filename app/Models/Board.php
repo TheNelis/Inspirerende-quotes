@@ -14,4 +14,9 @@ class Board extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function quotes()
+    {
+        return $this->hasMany(Quote::class);
+    }
 }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('quote');
             $table->boolean('favourite');
             $table->foreignIdFor(\App\Models\User::class);
-            $table->foreignIdFor(\App\Models\Board::class);
+            $table->foreignIdFor(\App\Models\Board::class)->constrained()->cascadeOnDelete();;
             $table->timestamps();
         });
     }
