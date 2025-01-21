@@ -3,12 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Board;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Name>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Board>
  */
-class NameFactory extends Factory
+class BoardFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +19,10 @@ class NameFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->firstName()
-            // board_id wordt in de seeder toegevoegd
+            'title' => fake()->word(),
+            'image' => fake()->image(),
+            'pinned' => false
+            // user_id wordt in de seeder toegevoegd
         ];
     }
 }

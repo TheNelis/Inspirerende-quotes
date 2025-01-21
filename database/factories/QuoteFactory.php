@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Board;
 use App\Models\Name;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,10 +20,10 @@ class QuoteFactory extends Factory
     public function definition(): array
     {
         return [
-            'name_id' => Name::factory(),
             'date' => fake()->date('Y-m-d'),
             'quote' => fake()->paragraph(1, true),
             'favourite' => fake()->boolean(30)
+            // name_id, user_id en board_id worden in de seeder toegevoegd
         ];
     }
 }

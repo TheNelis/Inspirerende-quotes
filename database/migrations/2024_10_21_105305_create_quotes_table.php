@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('quotes', function (Blueprint $table) {
             $table->id();
-            $table->string('name_id');
+            $table->foreignIdFor(\App\Models\Name::class);
             $table->date('date');
             $table->string('quote');
             $table->boolean('favourite');
+            $table->foreignIdFor(\App\Models\User::class);
+            $table->foreignIdFor(\App\Models\Board::class);
             $table->timestamps();
         });
     }

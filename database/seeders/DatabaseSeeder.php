@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Board;
+use App\Models\Name;
+use App\Models\Quote;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,11 +16,32 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Users aanmaken
+        $users = User::factory(2)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Boards aanmaken
+        $boards = Board::factory(3)->create([
+            'user_id' => fn() => $users->random()->id
+        ]);
+
+        // Many-to-many relaties maken
+        foreach ($boards as $board) {
+            // Ken random aantal users (1-2) toe aan elk board
+            $board->users()->attach(
+                $users->random(rand(1, 2))->pluck('id')->toArray()
+            );
+        }
+
+        // Names aanmaken
+        $names = Name::factory(15)->create([
+            'board_id' => fn() => $boards->random()->id
+        ]);
+
+        // Quotes aanmaken
+        Quote::factory(100)->create([
+            'name_id' => fn() => $names->random()->id,
+            'user_id' => fn() => $users->random()->id,
+            'board_id' => fn() => $boards->random()->id
         ]);
     }
 }
