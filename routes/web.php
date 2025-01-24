@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
@@ -8,25 +9,23 @@ use App\Models\Quote;
 use App\Models\Name;
 use App\Livewire\AllQuotes;
 use App\Livewire\FavQuotes;
+use App\Models\Board;
+
+Route::get('/no-access', function() {
+    return view('auth.no-access');
+});
 
 Route::get('/', [BoardController::class, 'showBoards']);
-
 
 Route::get('/board={boardId}', AllQuotes::class);
 
 Route::get('/board={boardId}/favorieten', FavQuotes::class);
 
-Route::get('/board={boardId}/quizmode', function ($boardId) {
-    $quotes = Quote::where('board_id', $boardId)
-        ->inRandomOrder()->get();
+Route::get('/board={boardId}/quizmode', [QuizController::class, 'showQuiz']);
 
-    return view('quizmode', [
-        'quotes' => $quotes,
-        'boardId' => $boardId
-    ]);
-});
 
-Route::post('/board', function () {  // wordt '/{boardCode}', check if user has boardCode
+// Quotes ----------------------------------------------------------------------------------------------------
+Route::post('/board={boardId}', function ($boardId) {
 
     request()->validate([
         'newname' => ['max:12'],
@@ -37,7 +36,8 @@ Route::post('/board', function () {  // wordt '/{boardCode}', check if user has 
 
     if (request('newname')){
         $data = Name::create([
-            'name' => request('newname')
+            'name' => request('newname'),
+            'board_id' => request('board_id')
         ]);
         $lastId = $data->id;
     } else {
@@ -49,13 +49,15 @@ Route::post('/board', function () {  // wordt '/{boardCode}', check if user has 
         'name_id' => $lastId,
         'date' => request('date'),
         'quote' => request('quote'),
-        'favourite' => false
+        'favourite' => false,
+        'user_id' => request('user_id'),
+        'board_id' => request('board_id'),
     ]);
 
-    return redirect('/board'); // wordt '/{boardCode}'
+    return redirect("/board={$boardId}");
 });
 
-Route::patch('/board', function () { // wordt '/{boardCode}', check if user has boardCode
+Route::patch('/board={boardId}', function ($boardId) {
 
     request()->validate([
         'newname' => ['max:12'],
@@ -79,18 +81,25 @@ Route::patch('/board', function () { // wordt '/{boardCode}', check if user has 
         'favourite' => request('favourite')
     ]);
 
-    return redirect('/board'); // wordt '/{boardCode}'
+    return redirect("/board={$boardId}");
 });
 
-Route::delete('/board', function () { // wordt '/{boardCode}', check if user has boardCode
+Route::delete('/board={boardId}', function ($boardId) {
 
     $quote = Quote::findOrFail(request('id'));
     $quote->delete();
     
-    return redirect('/board'); // wordt '/{boardCode}'
+    return redirect("/board={$boardId}");
 });
 
 
+
+// Boards ----------------------------------------------------------------------------------------------------
+Route::post('/', [BoardController::class, 'addBoard']);
+
+
+
+// Users ----------------------------------------------------------------------------------------------------
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
 

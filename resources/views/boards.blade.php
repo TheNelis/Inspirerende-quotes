@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.app>
 <div id="swup" class="maincontainer">
     <div class="navcontainer">
         <div class="navcontainer__flexcontainer"></div>
@@ -41,7 +41,7 @@
         @endif
 
         <section class="addboardcontainer">
-            <x-filterbutton filtertype="button" onClick="document.getElementById('addQuoteForm').parentNode.style.display='flex'">Board aanmaken</x-filterbutton>
+            <x-filterbutton filtertype="button" onClick="document.getElementById('addBoardForm').parentNode.style.display='flex'">Board aanmaken</x-filterbutton>
         </section>
 
         <section id='boardscontainer' class="boardscontainer">
@@ -71,41 +71,39 @@
 
     {{-- Board aanmaken --}}
     <div class="darkbackground">
-        <h2 class="addquoteform__title">Board aanmaken</h2>
-        <form method="POST" action="/board" class="addquoteform" id="addQuoteForm">
+        <h2 class="addboardform__title">Board aanmaken</h2>
+        <form method="POST" action="/" enctype="multipart/form-data" class="addboardform" id="addBoardForm">
             @csrf
 
-            <h4 onClick="document.getElementById('addQuoteForm').parentNode.style.display='none'" class="addquoteform__annuleren">Annuleren</h4>
-            <textarea type="text" name="quote" placeholder="Typ hier je quote... (max. 150)" class="addquoteform__textfield" required></textarea>
-            <div class="addquoteform__container">
-                <div class="addquoteform__container__div">
-                    <select id="addDropdown" name="name" class="addquoteform__container__dropdown" required>
-                        <option value="" disabled selected>Persoon</option>
-                        <option value="anders">Anders...</option>
-                    </select>
-                    <input type="date" name="date" class="addquoteform__container__date" required>
-                    <input type="text" name="newname" placeholder="Naam (max. 12)" id="anders" class="addquoteform__container__anders">
-                </div>
+            <h4 onClick="document.getElementById('addBoardForm').parentNode.style.display='none'; document.getElementById('addBoardForm').reset()" 
+                class="addboardform__annuleren">Annuleren</h4>
+
+            <div class="addboardform__inputcontainer">
+                <input type="text" name="title" placeholder="Boardnaam (max. 11)" maxlength="11" class="addboardform__boardtitle" required></input>
                 <div>
-                    <input type="submit" value="Toevoegen" class="addquoteform__container__toevoegen">
-                    <svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1 {fill-rule: evenodd;}</style></defs>
-                        <path id="checkmark" class="cls-1" d="M1224,312a12,12,0,1,1,3.32-23.526l-1.08,1.788A10,10,0,1,0,1234,300a9.818,9.818,0,0,0-.59-3.353l1.27-2.108A11.992,11.992,0,0,1,1224,312Zm0.92-8.631a0.925,0.925,0,0,1-.22.355,0.889,0.889,0,0,1-.72.259,0.913,0.913,0,0,1-.94-0.655l-3.82-3.818a0.9,0.9,0,0,1,1.27-1.271l3.25,3.251,7.39-10.974a1,1,0,0,1,1.38-.385,1.051,1.051,0,0,1,.36,1.417Z" transform="translate(-1212 -288)"/>
-                    </svg>
+                    <label for="image" class="addboardform__label">Board afbeelding (max. 5MB)</label>
+                    <input type="file" name="image" accept="image/png, image/jpeg, image/jpg" class="addboardform__image">
                 </div>
+            </div>
+            <div class="addboardform__container">
+                <input type="submit" value="Toevoegen" class="addboardform__container__toevoegen">
+                <svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1 {fill-rule: evenodd;}</style></defs>
+                    <path id="checkmark" class="cls-1" d="M1224,312a12,12,0,1,1,3.32-23.526l-1.08,1.788A10,10,0,1,0,1234,300a9.818,9.818,0,0,0-.59-3.353l1.27-2.108A11.992,11.992,0,0,1,1224,312Zm0.92-8.631a0.925,0.925,0,0,1-.22.355,0.889,0.889,0,0,1-.72.259,0.913,0.913,0,0,1-.94-0.655l-3.82-3.818a0.9,0.9,0,0,1,1.27-1.271l3.25,3.251,7.39-10.974a1,1,0,0,1,1.38-.385,1.051,1.051,0,0,1,.36,1.417Z" transform="translate(-1212 -288)"/>
+                </svg>
             </div>
         </form>
     </div>
 
-    {{-- Quote bewerken --}}
+    {{-- Board bewerken --}}
     <div class="darkbackground">
-        <h2 class="addquoteform__title">Quote bewerken</h2>
-        <form method="POST" action="/board" class="bewerkquote" id="bewerkQuote">
+        <h2 class="addquoteform__title">Board bewerken</h2>
+        <form method="POST" action="/" class="bewerkquote" id="bewerkBoard">
             @csrf
             @method('PATCH')
             <input type="hidden" id="idInput" name="id" value="">
             
             <div class="bewerkquote__topcontainer">
-                <h4 onClick="document.getElementById('bekijkQuote').parentNode.style.display='flex'; document.getElementById('bewerkQuote').parentNode.style.display='none'" class="bewerkquote__topcontainer__annuleren">
+                <h4 onClick="document.getElementById('bekijkBoard').parentNode.style.display='flex'; document.getElementById('bewerkQuote').parentNode.style.display='none'" class="bewerkquote__topcontainer__annuleren">
                     Annuleren
                 </h4>
                 <input form="deleteForm" type="submit" value="Verwijder" class="bewerkquote__topcontainer__verwijder">
@@ -135,4 +133,14 @@
     </div>
 
 </div>
-</x-layout>
+</x-layouts.app>
+
+
+{{-- <div>
+    <label for="invite" class="addboardform__label">Invite link:</label>
+    <div class="addboardform__invite__wrapper">
+        <input type="text" id="invite-link" name="invite" value="https://www.google.com/search?sca_esv=78c2cdce3559d586&sxsrf=AHTn8zqlkdOk0rkXR4MM3Kc4Xy93g4AedA:1737718842889&q=invite+link+ui&udm=2&fbs=ABzOT_DDfJxgmsKFIwrWKcoyw2RfcH6DTUcy5g5alyxuLXMELFYytOWGTvTZIDoI52i6SCGy0LWR52jnJc4IdeRvzIQP1uok8pZKBRUc4tCtbE3vjDxiKHSHoDzuQqVkW-xpwu_X1tU3yTAKNqvNWopXxvnQ3tlZuOO-8XcQUuRgpyva6ofptkw&sa=X&ved=2ahUKEwji9-WSo46LAxXV8LsIHbyhLcYQtKgLegQIERAB&biw=1512&bih=857&dpr=2#vhid=gweUvosFB3CazM&vssid=mosaic" 
+        class="addboardform__invite" readonly>
+        <button type="button" id="invite-copy" onClick="copyInviteLink()">Copy link</button>
+    </div>
+</div> --}}

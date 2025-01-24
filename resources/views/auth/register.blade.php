@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.app>
 <div id="swup" class="maincontainer--auth">
     <a href="/" class="auth-form__terug">
         <svg fill="#000000" width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g data-name="Layer 2"><g data-name="arrow-back"><rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"/>
@@ -42,4 +42,4 @@
         </ul>
     @endif
 </div>
-</x-layout>
+</x-layouts.app>

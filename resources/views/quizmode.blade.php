@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.app>
 <div id="swup" class="maincontainer">
     <div id='quizcontainer' class="navcontainer">
         <div id="swup" class="navcontainer__flexcontainer transition-out_left">
@@ -9,7 +9,7 @@
         <div id="swup" class="navcontainer__flexcontainer navcontainer__flexcontainer--title transition-title">
             <div class="navcontainer__titlecontainer">
                 <h1 class="navcontainer__titlecontainer__komma">“</h1>
-                <h1 class="navcontainer__titlecontainer__boardtitle">Kaasfabriek</h1>
+                <h1 class="navcontainer__titlecontainer__boardtitle">{{ $boardTitle }}</h1>
                 <h1 class="navcontainer__titlecontainer__komma">”</h1>
                 <h2 id="swup" class="navcontainer__titlecontainer--quiztitle navcontainer__titlecontainer--quiztitle--quizmode transition-quiztitle">Quizmode</h2>
             </div>
@@ -75,4 +75,4 @@
     </div>
 
 </div>
-</x-layout>
+</x-layouts.app>

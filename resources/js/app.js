@@ -19,7 +19,7 @@ function loadScripts() {
         bewerkQuote.parentNode.style.display = 'none';
 
         //Toggle addQuoteForm
-        window.addEventListener('mouseup', function(event) {
+        window.addEventListener('mousedown', function(event) {
             const addQuoteForm = document.getElementById('addQuoteForm');
 
             if(addQuoteForm.parentNode.style.display != 'none' && event.target != addQuoteForm && event.target.parentNode != addQuoteForm && event.target.parentNode.parentNode != addQuoteForm && event.target.parentNode.parentNode.parentNode != addQuoteForm){
@@ -43,7 +43,7 @@ function loadScripts() {
 
 
         // Toggle bekijkQuote
-        window.addEventListener('mouseup', function(event) {
+        window.addEventListener('mousedown', function(event) {
             const bekijkQuote = document.getElementById('bekijkQuote');
 
             if(bekijkQuote.parentNode.style.display == 'flex' && event.target != bekijkQuote && event.target.parentNode != bekijkQuote && event.target.parentNode.parentNode != bekijkQuote && event.target.parentNode.parentNode.parentNode != bekijkQuote){
@@ -105,7 +105,7 @@ function loadScripts() {
         }
 
         // Toggle bewerkQuote
-        window.addEventListener('mouseup', function(event) {
+        window.addEventListener('mousedown', function(event) {
             const bewerkQuote = document.getElementById('bewerkQuote');
 
             if(bewerkQuote.parentNode.style.display == 'flex' && event.target != bewerkQuote && event.target.parentNode != bewerkQuote && event.target.parentNode.parentNode != bewerkQuote && event.target.parentNode.parentNode.parentNode != bewerkQuote){
@@ -121,7 +121,7 @@ function loadScripts() {
 
     if (document.getElementById('quizcontainer')) {
 
-        window.addEventListener('mouseup', function(event) {
+        window.addEventListener('mousedown', function(event) {
             const speluitleg = document.getElementById('speluitleg');
 
             if(speluitleg.parentNode.style.display != 'none' && event.target != speluitleg && event.target.parentNode != speluitleg && event.target.parentNode.parentNode != speluitleg && event.target.parentNode.parentNode.parentNode != speluitleg){
@@ -169,5 +169,47 @@ function loadScripts() {
                 dropdownMenu.style.opacity = '0';
             }
         }
+
+        window.copyInviteLink = function() {
+
+            let copied = false;
+            const copyButton = document.getElementById('invite-copy');
+            const inviteLink = document.getElementById('invite-link');
+
+            if (!copied) {
+                inviteLink.select();
+                inviteLink.setSelectionRange(0, 99999); // For mobile devices
+
+                // Copy the text inside the text field
+                navigator.clipboard.writeText(inviteLink.value);
+
+                copied = !copied;
+                copyButton.innerHTML = "Copied link!"
+            }
+        }
+
+
+        addBoardForm.parentNode.style.display = 'none';
+        bewerkBoard.parentNode.style.display = 'none';
+
+        //Toggle addBoardForm
+        window.addEventListener('mousedown', function(event) {
+            const addBoardForm = document.getElementById('addBoardForm');
+
+            if(addBoardForm.parentNode.style.display != 'none' && event.target != addBoardForm && event.target.parentNode != addBoardForm && event.target.parentNode.parentNode != addBoardForm && event.target.parentNode.parentNode.parentNode != addBoardForm && event.target.parentNode.parentNode.parentNode.parentNode != addBoardForm){
+                addBoardForm.parentNode.style.display = 'none';
+                addBoardForm.reset();
+            }
+        });
+
+        // Toggle bewerkBoard
+        window.addEventListener('mousedown', function(event) {
+            const bewerkBoard = document.getElementById('bewerkBoard');
+
+            if(bewerkBoard.parentNode.style.display == 'flex' && event.target != bewerkBoard && event.target.parentNode != bewerkBoard && event.target.parentNode.parentNode != bewerkBoard && event.target.parentNode.parentNode.parentNode != bewerkBoard){
+                bewerkBoard.parentNode.style.display = 'none';
+                document.getElementById('bewerkBoard').submit();
+            }
+        });
     }
 }

@@ -10,6 +10,8 @@ class Board extends Model
 
     use HasFactory;
 
+    protected $fillable = ['title', 'image', 'pinned', 'user_id'];
+
     public function users()
     {
         return $this->belongsToMany(User::class);

@@ -8,7 +8,7 @@
         <div id="swup" class="navcontainer__flexcontainer navcontainer__flexcontainer--title transition-title">
             <div class="navcontainer__titlecontainer">
                 <h1 class="navcontainer__titlecontainer__komma">“</h1>
-                <h1 class="navcontainer__titlecontainer__boardtitle">Kaasfabriek</h1>
+                <h1 class="navcontainer__titlecontainer__boardtitle">{{ $boardTitle }}</h1>
                 <h1 class="navcontainer__titlecontainer__komma">”</h1>
                 <h2 id="swup" class="navcontainer__titlecontainer--quiztitle transition-quiztitle">Quizmode</h2>
             </div>
@@ -48,19 +48,25 @@
             @endif
         </section>
 
-        <div class="linkcontainer">
-            {{ $quotes->links() }}
-        </div>
+        @if(count($quotes) > 0)
+            <div class="linkcontainer">
+                {{ $quotes->links() }}
+            </div>
+        @endif
     </div>
 
     {{-- Quote toevoegen --}}
     <div class="darkbackground">
         <h2 class="addquoteform__title">Quote toevoegen</h2>
-        <form method="POST" action="/board" class="addquoteform" id="addQuoteForm">
+        <form method="POST" action="/board={{ $boardId }}" class="addquoteform" id="addQuoteForm">
             @csrf
 
-            <h4 onClick="document.getElementById('addQuoteForm').parentNode.style.display='none'" class="addquoteform__annuleren">Annuleren</h4>
-            <textarea type="text" name="quote" placeholder="Typ hier je quote... (max. 150)" class="addquoteform__textfield" required></textarea>
+            <input type="hidden" name="user_id" value="{{ $userId }}" required>
+            <input type="hidden" name="board_id" value="{{ $boardId }}" required>
+
+            <h4 onClick="document.getElementById('addQuoteForm').parentNode.style.display='none'; document.getElementById('addQuoteForm').reset()" 
+                class="addquoteform__annuleren">Annuleren</h4>
+            <textarea type="text" name="quote" placeholder="Typ hier je quote... (max. 150)" maxlength="150" class="addquoteform__textfield" required></textarea>
             <div class="addquoteform__container">
                 <div class="addquoteform__container__div">
                     <select id="addDropdown" name="name" class="addquoteform__container__dropdown" required>
@@ -71,7 +77,7 @@
                         <option value="anders">Anders...</option>
                     </select>
                     <input type="date" name="date" class="addquoteform__container__date" required>
-                    <input type="text" name="newname" placeholder="Naam (max. 12)" id="anders" class="addquoteform__container__anders">
+                    <input type="text" name="newname" placeholder="Naam (max. 12)" maxlength="12" id="anders" class="addquoteform__container__anders">
                 </div>
                 <div>
                     <input type="submit" value="Toevoegen" class="addquoteform__container__toevoegen">
@@ -116,7 +122,7 @@
     {{-- Quote bewerken --}}
     <div class="darkbackground">
         <h2 class="addquoteform__title">Quote bewerken</h2>
-        <form method="POST" action="/board" class="bewerkquote" id="bewerkQuote">
+        <form method="POST" action="/board={{ $boardId }}" class="bewerkquote" id="bewerkQuote">
             @csrf
             @method('PATCH')
             <input type="hidden" id="idInput" name="id" value="">
@@ -128,7 +134,7 @@
                 <input form="deleteForm" type="submit" value="Verwijder" class="bewerkquote__topcontainer__verwijder">
             </input>
             </div>
-            <textarea id="bewerkquoteQuote" name="quote" class="bewerkquote__quote"></textarea>
+            <textarea id="bewerkquoteQuote" name="quote" maxlength="150" class="bewerkquote__quote"></textarea>
             <div class="bewerkquote__container">
                 <div class="bewerkquote__container__div">
                     <select id="editDropdown" name="name" class="bewerkquote__container__dropdown" required>
@@ -147,7 +153,7 @@
                 </div>
             </div>
         </form>
-        <form method="POST" action="/board" id="deleteForm">
+        <form method="POST" action="/board={{$boardId}}" id="deleteForm">
             @csrf
             @method('DELETE')
             <input type="hidden" id="deleteId" name="id" value="">

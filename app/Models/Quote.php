@@ -10,7 +10,7 @@ class Quote extends Model {
 
     protected $table = 'quotes';
 
-    protected $fillable = ['name_id', 'date', 'quote', 'favourite'];
+    protected $fillable = ['name_id', 'date', 'quote', 'favourite', 'user_id', 'board_id'];
 
     public function name()
     {

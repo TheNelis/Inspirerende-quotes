@@ -18,7 +18,7 @@
     @livewireStyles
     @livewireScripts
 
-    <title>Inspirerende quotes</title>
+    <title>Quoted</title>
 </head>
 <body>
     {{ $slot }}
