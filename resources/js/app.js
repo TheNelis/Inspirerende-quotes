@@ -163,10 +163,42 @@ function loadScripts() {
                 dropdownSVG.style.transform = 'rotateZ(180deg)';
                 dropdownMenu.style.height = '105px';
                 dropdownMenu.style.opacity = '1';
+                
             } else {
                 dropdownSVG.style.transform = 'rotateZ(0deg)';
                 dropdownMenu.style.height = '0px';
                 dropdownMenu.style.opacity = '0';
+            }
+        }
+
+        let boardMenuStates = {};
+    
+        window.toggleBoardMenu = function(boardId) {
+            if (boardMenuStates[boardId] === undefined) {
+                boardMenuStates[boardId] = false;
+            }
+
+            let boardMenu = document.getElementById(`board-menu${boardId}`);
+            let boardMenuSVG = document.getElementById(`boardmenu-svg${boardId}`);
+            let boardDeleteButton = document.getElementById(`boardDeleteButton${boardId}`);
+            let boardBewerkButton = document.getElementById(`boardBewerkButton${boardId}`);
+
+            boardMenuStates[boardId] = !boardMenuStates[boardId];
+
+            if (boardMenuStates[boardId]) {
+                boardMenu.style.height = '155px';
+                boardMenu.style.opacity = '1';
+
+                window.addEventListener('mousedown', function(event) {
+                    if(boardMenuStates[boardId] && event.target != boardDeleteButton && event.target != boardBewerkButton && event.target != boardMenuSVG && event.target != boardMenuSVG.parentNode) {
+                        boardMenuStates[boardId] = false;
+                        boardMenu.style.height = '0px';
+                        boardMenu.style.opacity = '0';
+                    }
+                });
+            } else {
+                boardMenu.style.height = '0px';
+                boardMenu.style.opacity = '0';
             }
         }
 
@@ -190,7 +222,6 @@ function loadScripts() {
 
 
         addBoardForm.parentNode.style.display = 'none';
-        bewerkBoard.parentNode.style.display = 'none';
 
         //Toggle addBoardForm
         window.addEventListener('mousedown', function(event) {
@@ -202,14 +233,16 @@ function loadScripts() {
             }
         });
 
-        // Toggle bewerkBoard
-        window.addEventListener('mousedown', function(event) {
-            const bewerkBoard = document.getElementById('bewerkBoard');
+        // Toggle leaveboard
+        window.toggleLeaveBoard = function(boardId) {
+            document.getElementById('leaveBoardForm').parentNode.style.display='flex';
+            document.getElementById('leaveBoardId').value=boardId;
+        }
 
-            if(bewerkBoard.parentNode.style.display == 'flex' && event.target != bewerkBoard && event.target.parentNode != bewerkBoard && event.target.parentNode.parentNode != bewerkBoard && event.target.parentNode.parentNode.parentNode != bewerkBoard){
-                bewerkBoard.parentNode.style.display = 'none';
-                document.getElementById('bewerkBoard').submit();
-            }
-        });
+        // Toggle deleteboard
+        window.toggleDeleteBoard = function(boardId) {
+            document.getElementById('deleteBoardForm').parentNode.style.display='flex';
+            document.getElementById('deleteBoardId').value=boardId;
+        }
     }
 }

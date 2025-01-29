@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\BoardInviteController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
@@ -16,6 +17,7 @@ Route::get('/no-access', function() {
 });
 
 Route::get('/', [BoardController::class, 'showBoards']);
+Route::get('/board={boardId}/leden', [BoardController::class, 'showLeden']);
 
 Route::get('/board={boardId}', AllQuotes::class);
 
@@ -96,8 +98,17 @@ Route::delete('/board={boardId}', function ($boardId) {
 
 // Boards ----------------------------------------------------------------------------------------------------
 Route::post('/', [BoardController::class, 'addBoard']);
+Route::patch('/pin', [BoardController::class, 'pinBoard']);
+Route::delete('/leaveboard', [BoardController::class, 'leaveBoard']);
+Route::delete('/deleteboard', [BoardController::class, 'deleteBoard']);
+Route::delete('/board={boardId}/leden', [BoardController::class, 'removeLid']);
 
-
+Route::get('/board={board}/invite', [BoardInviteController::class, 'getOrCreateInvite'])
+    ->name('board.get-invite')
+    ->middleware('auth');
+Route::get('/invite/{token}', [BoardInviteController::class, 'processInvite'])
+    ->name('board.invite')
+    ->middleware('auth');
 
 // Users ----------------------------------------------------------------------------------------------------
 Route::get('/register', [RegisteredUserController::class, 'create']);

@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Board;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Board>
@@ -21,7 +22,8 @@ class BoardFactory extends Factory
         return [
             'title' => fake()->word(),
             'image' => fake()->image(),
-            'pinned' => false
+            'pinned' => false,
+            'token' => Str::random(32)
             // user_id wordt in de seeder toegevoegd
         ];
     }

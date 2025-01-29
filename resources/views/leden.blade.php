@@ -1,3 +1,4 @@
+
 <x-layouts.app>
 <div id="swup" class="maincontainer">
     <div class="navcontainer">
@@ -71,63 +72,48 @@
         </section>
     </div>
 
-    {{-- Board aanmaken --}}
-    <div class="darkbackground">
-        <h2 class="addboardform__title">Board aanmaken</h2>
-        <form method="POST" action="/" enctype="multipart/form-data" class="addboardform" id="addBoardForm">
-            @csrf
-
-            <h4 onClick="document.getElementById('addBoardForm').parentNode.style.display='none'; document.getElementById('addBoardForm').reset()" 
-                class="addboardform__annuleren">Annuleren</h4>
-
-            <div class="addboardform__inputcontainer">
-                <input type="text" name="title" placeholder="Boardnaam (max. 11)" maxlength="11" class="addboardform__boardtitle" required></input>
-                <div>
-                    <label for="image" class="addboardform__label">Board afbeelding (max. 2MB)</label>
-                    <input type="file" id="image" name="image" accept="image/png, image/jpeg, image/jpg" class="addboardform__image">
+    {{-- Board bewerken/leden --}}
+    <div class="darkbackground--visible">
+        <h2 class="bewerkboard__title">Leden bewerken</h2>
+        <div class="bewerkboard">
+            <div class="bewerkboard__topcontainer">
+                <p>{{ $currentBoard->title }}</p>
+                <p>{{ count($leden) + 1 }} {{ count($leden) == 0 ? 'Lid' : 'Leden '}}</p>
+                <a href='/' class="bewerkboard__topcontainer__annuleren" data-no-swup>
+                    Annuleren
+                </a>
+            </div>
+            <ul class="bewerkboard__listcontainer">
+                <li class="bewerkboard__listcontainer__item bewerkboard__listcontainer__item--owner">
+                    {{ $owner->name }}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none"><path d="M6 19L18 19" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path fill="#FEE440" d="M16.5585 16H7.44152C6.58066 16 5.81638 15.4491 5.54415 14.6325L3.70711 9.12132C3.44617 8.3385 4.26195 7.63098 5 8L5.71067 8.35533C6.48064 8.74032 7.41059 8.58941 8.01931 7.98069L10.5858 5.41421C11.3668 4.63317 12.6332 4.63316 13.4142 5.41421L15.9807 7.98069C16.5894 8.58941 17.5194 8.74032 18.2893 8.35533L19 8C19.7381 7.63098 20.5538 8.3385 20.2929 9.12132L18.4558 14.6325C18.1836 15.4491 17.4193 16 16.5585 16Z" stroke="#000000" stroke-width="2" stroke-linejoin="round"/></svg>
+                </li>
+                @foreach ($leden as $lid)
+                    <li class="bewerkboard__listcontainer__item">
+                        {{ $lid->user->name }}
+                        @if (auth()->user()->id === $owner->id)
+                            <form method="POST" action="/board={{ $currentBoard->id }}/leden">
+                                @method('DELETE')
+                                @csrf
+                                <button>
+                                    <input type="hidden" name="userId" value="{{ $lid->user->id }}">
+                                    <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4 12H20M12 4V20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </form>
+                        @endif
+                    </li>
+                @endforeach
+            </ul>
+            <div id='inviteContainer' class="bewerkboard__container">
+                <label for="invite-link" class="bewerkboard__label">Invite link:</label>
+                <div class="bewerkboard__invite__wrapper">
+                    <input type="text" id="invite-link" name="invite" class="bewerkboard__invite" readonly>
+                    <button type="button" id="invite-copy" onClick="copyInviteLink()">Copy link</button>
                 </div>
             </div>
-            <div class="addboardform__container">
-                <input type="submit" value="Toevoegen" class="addboardform__container__toevoegen">
-                <svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1 {fill-rule: evenodd;}</style></defs>
-                    <path id="checkmark" class="cls-1" d="M1224,312a12,12,0,1,1,3.32-23.526l-1.08,1.788A10,10,0,1,0,1234,300a9.818,9.818,0,0,0-.59-3.353l1.27-2.108A11.992,11.992,0,0,1,1224,312Zm0.92-8.631a0.925,0.925,0,0,1-.22.355,0.889,0.889,0,0,1-.72.259,0.913,0.913,0,0,1-.94-0.655l-3.82-3.818a0.9,0.9,0,0,1,1.27-1.271l3.25,3.251,7.39-10.974a1,1,0,0,1,1.38-.385,1.051,1.051,0,0,1,.36,1.417Z" transform="translate(-1212 -288)"/>
-                </svg>
-            </div>
-        </form>
-    </div>
-
-    {{-- Board verlaten --}}
-    <div class="darkbackground">
-        <form method="POST" action="/leaveboard" id="leaveBoardForm" class="deleteboard">
-            @csrf
-            @method('DELETE')
-            <input type="hidden" id="leaveBoardId" name="id" value="">
-
-            <h2>Weet je zeker dat je dit board wilt verlaten?</h2>
-            <div class="deleteboard__container">
-                <button type="submit" class="deleteboard__container__button deleteboard__container__button--delete">Verlaat board</button>
-                <button type="button" onClick="document.getElementById('leaveBoardForm').parentNode.style.display='none';" class="deleteboard__container__button">
-                    Annuleren
-                </button>
-            </div>
-        </form>
-    </div>
-
-    {{-- Board verwijderen --}}
-    <div class="darkbackground">
-        <form method="POST" action="/deleteboard" id="deleteBoardForm" class="deleteboard">
-            @csrf
-            @method('DELETE')
-            <input type="hidden" id="deleteBoardId" name="id" value="">
-
-            <h2>Weet je zeker dat je dit board wilt verwijderen?</h2>
-            <div class="deleteboard__container">
-                <button type="submit" class="deleteboard__container__button deleteboard__container__button--delete">Verwijder board</button>
-                <button type="button" onClick="document.getElementById('deleteBoardForm').parentNode.style.display='none';" class="deleteboard__container__button">
-                    Annuleren
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
 
 </div>

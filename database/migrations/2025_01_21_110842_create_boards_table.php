@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('image');
             $table->boolean('pinned');
             $table->foreignIdFor(\App\Models\User::class);
+            $table->string('token')->unique();
             $table->timestamps();
         });
 

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Board;
-use Illuminate\Support\Facades\DB;
+use App\Models\BoardUser;
+use Illuminate\Support\Str;
 
 class BoardController extends Controller
 {
@@ -21,11 +22,55 @@ class BoardController extends Controller
                 ->withCount('quotes')
                 ->whereHas('users', function ($query) use ($userId) {
                     $query->where('user_id', $userId);
-                })->get();
+                })
+                ->orderBy('pinned','desc')
+                ->get();
         }
 
         return view('boards', [
             'boards' => $boards
+        ]);
+    }
+
+    public function showLeden($boardId)
+    {
+        $user = auth()->user();
+
+        if (!$user) {
+            return redirect('login');
+        }
+
+        $userId = $user->id;
+
+        // Check access to board
+        $hasAccess = BoardUser::where('board_id', $boardId)
+                    ->where('user_id', $userId)
+                    ->exists();
+
+        if (!$hasAccess) {
+            return redirect('no-access');
+        }
+
+        $boards = Board::withCount('users')
+            ->withCount('quotes')
+            ->whereHas('users', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
+            ->orderBy('pinned','desc')
+            ->get();
+        $currentBoard = Board::find($boardId);
+        $owner = Board::find($boardId)->owner;
+        $leden = BoardUser::with('user')
+            ->where('board_id', $boardId)
+            ->whereNotIn('user_id', [$owner->id])
+            ->get();
+            
+
+        return view('leden', [
+            'boards' => $boards,
+            'currentBoard' => $currentBoard,
+            'leden' => $leden,
+            'owner' => $owner
         ]);
     }
 
@@ -36,7 +81,7 @@ class BoardController extends Controller
 
         request()->validate([
             'title' => ['required', 'max:11'],
-            'image' => ['file', 'mimes:jpg,jpeg,png', 'max:5120']
+            'image' => ['file', 'mimes:jpg,jpeg,png', 'max:2048']
         ]);
 
         if (!request()->image) {
@@ -49,18 +94,62 @@ class BoardController extends Controller
             'title' => request()->title,
             'image' => $imagePath,
             'pinned' => false,
-            'user_id' => $userId
+            'user_id' => $userId,
+            'token' => Str::random(32)
         ]);
         $lastBoardId = $board->id;
 
-
-        DB::table('board_user')->insert(
-            array(
-                'board_id' => $lastBoardId,
-                'user_id' => $userId
-            )
-        );
+        BoardUser::create([
+            'board_id' => $lastBoardId,
+            'user_id' => $userId
+        ]);
     
         return redirect("/");
+    }
+
+    public function pinBoard()
+    {
+        $board = Board::findOrFail(request('id'));
+
+        if (request('isPinned') == true) {
+            $board->update([
+                'pinned' => false
+            ]);
+        } else {
+            $board->update([
+                'pinned' => true
+            ]);
+        }
+
+        return redirect("/");
+    }
+
+    public function leaveBoard() {
+        
+        BoardUser::where('board_id', request('id'))
+        ->where('user_id', auth()->user()->id)
+        ->delete();
+
+        return redirect("/");
+    }
+
+    public function deleteBoard() {
+
+        $board = Board::findOrFail(request('id'));
+
+        if ($board->user_id === auth()->user()->id) {
+            $board->delete();
+        }
+
+        return redirect("/");
+    }
+
+    public function removeLid($boardId) {
+
+        BoardUser::where('board_id', $boardId)
+        ->where('user_id', request('userId'))
+        ->delete();
+
+        return redirect("/board=$boardId/leden");
     }
 }

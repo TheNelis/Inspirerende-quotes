@@ -10,7 +10,7 @@ class Board extends Model
 
     use HasFactory;
 
-    protected $fillable = ['title', 'image', 'pinned', 'user_id'];
+    protected $fillable = ['title', 'image', 'pinned', 'user_id', 'token'];
 
     public function users()
     {
@@ -20,5 +20,9 @@ class Board extends Model
     public function quotes()
     {
         return $this->hasMany(Quote::class);
+    }
+
+    public function owner() {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
