@@ -50,11 +50,17 @@ class FavQuotes extends Component
                 ->latest()
                 ->paginate($this->pagination);
         }else{
-            $quotes = Quote::where('board_id', $this->boardId)
-                ->where('favourite', 1)
-                ->where('quote','like','%'.$this->q.'%') 
-                ->latest()
-                ->paginate($this->pagination);
+            $quotes = Quote::with('name')
+            ->where('board_id', $this->boardId)
+            ->where('favourite', 1)
+            ->where(function($query) {
+                $query->where('quote', 'like', '%'.$this->q.'%')
+                        ->orWhereHas('name', function ($nameQuery) {
+                            $nameQuery->where('name', 'like', '%'.$this->q.'%');
+                        });
+            })
+            ->latest()
+            ->paginate($this->pagination);
         }
 
         $personen = Name::where('board_id', $this->boardId)->get();

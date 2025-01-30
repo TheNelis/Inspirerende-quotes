@@ -92,9 +92,13 @@ class BoardController extends Controller
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
-        }
 
-        return redirect('/')->with('success', 'Je bent toegevoegd aan het board!');
+            return redirect('/')->with('success', 'Je bent toegevoegd aan het board!');
+
+        } else {
+
+            return redirect('/')->withErrors(['message' => 'Je bent al lid van dit board']);
+        }
     }
 
     public function addBoard()

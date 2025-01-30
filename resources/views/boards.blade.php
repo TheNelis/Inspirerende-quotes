@@ -39,6 +39,11 @@
                 @endforeach
             </ul>
         @endif
+        @if(session('success'))
+            <ul class="success-message">
+                <li>{{ session('success') }}</li>
+            </ul>
+        @endif
 
         <section class="addboardcontainer">
             @auth
