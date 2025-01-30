@@ -103,10 +103,7 @@ Route::delete('/leaveboard', [BoardController::class, 'leaveBoard']);
 Route::delete('/deleteboard', [BoardController::class, 'deleteBoard']);
 Route::delete('/board={boardId}/leden', [BoardController::class, 'removeLid']);
 
-Route::get('/board={board}/invite', [BoardInviteController::class, 'getOrCreateInvite'])
-    ->name('board.get-invite')
-    ->middleware('auth');
-Route::get('/invite/{token}', [BoardInviteController::class, 'processInvite'])
+Route::get('/invite/{token}', [BoardController::class, 'processInvite'])
     ->name('board.invite')
     ->middleware('auth');
 

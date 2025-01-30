@@ -352,6 +352,7 @@
         font-size: 22px;
         max-height: 40vh;
         overflow-y: auto;
+        overflow-x: hidden;
 
         @media only screen and (min-width:v.$lg){
             font-size: 24px;

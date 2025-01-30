@@ -64,14 +64,37 @@ class BoardController extends Controller
             ->where('board_id', $boardId)
             ->whereNotIn('user_id', [$owner->id])
             ->get();
-            
+
 
         return view('leden', [
             'boards' => $boards,
             'currentBoard' => $currentBoard,
             'leden' => $leden,
-            'owner' => $owner
+            'owner' => $owner,
+            'inviteLink' => route('board.invite', ['token' => $currentBoard->token])
         ]);
+    }
+
+    public function processInvite($token)
+    {
+        $board = Board::where('token', $token)->firstOrFail();
+        $user = auth()->user();
+        
+        // Check of de gebruiker al toegang heeft
+        $alreadyHasAccess = BoardUser::where('board_id', $board->id)
+            ->where('user_id', $user->id)
+            ->exists();
+            
+        if (!$alreadyHasAccess) {
+            BoardUser::insert([
+                'board_id' => $board->id,
+                'user_id' => $user->id,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+
+        return redirect('/')->with('success', 'Je bent toegevoegd aan het board!');
     }
 
     public function addBoard()

@@ -106,13 +106,15 @@
                     </li>
                 @endforeach
             </ul>
-            <div id='inviteContainer' class="bewerkboard__container">
-                <label for="invite-link" class="bewerkboard__label">Invite link:</label>
-                <div class="bewerkboard__invite__wrapper">
-                    <input type="text" id="invite-link" name="invite" class="bewerkboard__invite" readonly>
-                    <button type="button" id="invite-copy" onClick="copyInviteLink()">Copy link</button>
+            @if (auth()->user()->id === $owner->id)
+                <div id='inviteContainer' class="bewerkboard__container">
+                    <label for="invite-link" class="bewerkboard__label">Invite link:</label>
+                    <div class="bewerkboard__invite__wrapper">
+                        <input type="text" id="invite-link" name="invite" class="bewerkboard__invite" value="{{ $inviteLink }}" readonly>
+                        <button type="button" id="invite-copy" onClick="copyInviteLink()">Copy link</button>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 
