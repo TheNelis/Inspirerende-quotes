@@ -87,7 +87,7 @@
 
                         <input type="text" name='newname' value="{{ $user->name }}" class="editprofile__subcontainer__input" >
                     </form>
-                    @error('name')
+                    @error('newname')
                         <div class="error">{{ $message }}</div>
                     @enderror
                     <div class="editprofile__subcontainer__buttoncontainer">
@@ -110,9 +110,6 @@
                             <input type="password" name="newpassword" id="newpassword" class="editprofile__subcontainer__input" required>
                         </div>
                     </form>
-                    @error('password')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
                     <div class="editprofile__subcontainer__buttoncontainer">
                         <button type="submit" form="changePassword" id='changePasswordSubmit' class="editprofile__subcontainer__buttoncontainer__submit">Opslaan</button>
                     </div>
@@ -122,7 +119,8 @@
                     <h4 class="editprofile__subcontainer__title">Account verwijderen</h4>
                     <p class="editprofile__subcontainer__warning">
                         <span>Let op:</span><br/>
-                        Hierbij zullen alle boards die je gemaakt hebt en de bijhorende quotes verwijderd worden!
+                        Hierbij zullen alle boards die je gemaakt hebt verwijderd worden! <br/>
+                        Jouw quotes in andere boards blijven wel bestaan.
                     </p>
                     <div class="editprofile__subcontainer__buttoncontainer">
                         <button type="button" onClick="document.getElementById('deleteAccount').parentNode.style.display='flex'; document.getElementById('editProfile').parentNode.style.display='none';" class="editprofile__subcontainer__buttoncontainer__submit editprofile__subcontainer__buttoncontainer__submit--delete">Verwijder</button>

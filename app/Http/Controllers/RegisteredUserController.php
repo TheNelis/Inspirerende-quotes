@@ -18,7 +18,7 @@ class RegisteredUserController extends Controller
     {
 
         $attributes = request()->validate([
-            'name' => ['required', 'max:10'],
+            'name' => ['required', 'min:3', 'max:10'],
             'email' => ['required', 'email'],
             'password' => ['required', Password::min(6), 'confirmed'],
         ]);
@@ -77,7 +77,7 @@ class RegisteredUserController extends Controller
         $user = auth()->user();
 
         request()->validate([
-            'newname' => ['required', 'max:10']
+            'newname' => ['required', 'min:3', 'max:10']
         ]);
 
         $account = User::find($user->id);
@@ -91,7 +91,7 @@ class RegisteredUserController extends Controller
 
         if ($nameExists) {
             throw ValidationException::withMessages([
-                'name' => 'Sorry, deze gebruikersnaam bestaat al.'
+                'newname' => 'Sorry, deze gebruikersnaam bestaat al.'
             ]);
         }
 
