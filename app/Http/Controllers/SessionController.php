@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -19,10 +20,19 @@ class SessionController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required']
         ]);
+
+        $emailExists = User::where('email', request('email'))
+                        ->exists();
+
+        if (!$emailExists) {
+            throw ValidationException::withMessages([
+                'email' => 'Er bestaat geen account met dit emailadres.'
+            ]);
+        }
         
         if (! Auth::attempt($attributes)) {
             throw ValidationException::withMessages([
-                'email' => 'Sorry, de inloggegevens komen niet overeen.'
+                'password' => 'Sorry, het wachtwoord is incorrect.'
             ]);
         }
 

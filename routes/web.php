@@ -10,14 +10,15 @@ use App\Models\Quote;
 use App\Models\Name;
 use App\Livewire\AllQuotes;
 use App\Livewire\FavQuotes;
-use App\Models\Board;
 
 Route::get('/no-access', function() {
     return view('auth.no-access');
 });
 
 Route::get('/', [BoardController::class, 'showBoards']);
+Route::get('/account', [RegisteredUserController::class, 'showProfile']);
 Route::get('/board={boardId}/leden', [BoardController::class, 'showLeden']);
+Route::get('/board={boardId}/bewerk', [BoardController::class, 'showBewerk']);
 
 Route::get('/board={boardId}', AllQuotes::class);
 
@@ -99,6 +100,8 @@ Route::delete('/board={boardId}', function ($boardId) {
 // Boards ----------------------------------------------------------------------------------------------------
 Route::post('/', [BoardController::class, 'addBoard']);
 Route::patch('/pin', [BoardController::class, 'pinBoard']);
+Route::patch('/board={boardId}/bewerk', [BoardController::class, 'bewerkBoard']);
+Route::patch('/board={boardId}/changeinvite', [BoardController::class, 'changeInvite']);
 Route::delete('/leaveboard', [BoardController::class, 'leaveBoard']);
 Route::delete('/deleteboard', [BoardController::class, 'deleteBoard']);
 Route::delete('/board={boardId}/leden', [BoardController::class, 'removeLid']);
@@ -110,7 +113,11 @@ Route::get('/invite/{token}', [BoardController::class, 'processInvite'])
 // Users ----------------------------------------------------------------------------------------------------
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
+Route::patch('/changepassword', [RegisteredUserController::class, 'changePassword']);
+Route::patch('/account', [RegisteredUserController::class, 'changeName']);
+Route::delete('/account', [RegisteredUserController::class, 'deleteAccount']);
 
-Route::get('/login', [SessionController::class, 'create']);
+
+Route::get('/login', [SessionController::class, 'create'])->name('login');
 Route::post('/login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);

@@ -110,7 +110,6 @@ function loadScripts() {
 
             if(bewerkQuote.parentNode.style.display == 'flex' && event.target != bewerkQuote && event.target.parentNode != bewerkQuote && event.target.parentNode.parentNode != bewerkQuote && event.target.parentNode.parentNode.parentNode != bewerkQuote){
                 bewerkQuote.parentNode.style.display = 'none';
-                document.getElementById('bewerkQuote').submit();
             }
         });
     }
@@ -180,8 +179,8 @@ function loadScripts() {
 
             let boardMenu = document.getElementById(`board-menu${boardId}`);
             let boardMenuSVG = document.getElementById(`boardmenu-svg${boardId}`);
-            let boardDeleteButton = document.getElementById(`boardDeleteButton${boardId}`);
-            let boardBewerkButton = document.getElementById(`boardBewerkButton${boardId}`);
+            let boardButton = document.getElementById(`boardButton${boardId}`);
+            let boardLedenButton = document.getElementById(`boardLedenButton${boardId}`);
 
             boardMenuStates[boardId] = !boardMenuStates[boardId];
 
@@ -190,7 +189,7 @@ function loadScripts() {
                 boardMenu.style.opacity = '1';
 
                 window.addEventListener('mousedown', function(event) {
-                    if(boardMenuStates[boardId] && event.target != boardDeleteButton && event.target != boardBewerkButton && event.target != boardMenuSVG && event.target != boardMenuSVG.parentNode) {
+                    if(boardMenuStates[boardId] && event.target != boardButton && event.target != boardButton.parentNode && event.target != boardLedenButton && event.target != boardMenuSVG && event.target != boardMenuSVG.parentNode) {
                         boardMenuStates[boardId] = false;
                         boardMenu.style.height = '0px';
                         boardMenu.style.opacity = '0';
@@ -237,12 +236,6 @@ function loadScripts() {
         window.toggleLeaveBoard = function(boardId) {
             document.getElementById('leaveBoardForm').parentNode.style.display='flex';
             document.getElementById('leaveBoardId').value=boardId;
-        }
-
-        // Toggle deleteboard
-        window.toggleDeleteBoard = function(boardId) {
-            document.getElementById('deleteBoardForm').parentNode.style.display='flex';
-            document.getElementById('deleteBoardId').value=boardId;
         }
     }
 }

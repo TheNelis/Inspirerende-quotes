@@ -31,15 +31,15 @@
                         </button>
                     </form>
                 </li>
-                <li id='boardBewerkButton{{ $boardId }}' class="boardcard__infocontainer__menu__item">
-                    <a href="/board={{$boardId}}/leden" data-no-swup>Leden</a>
+                <li class="boardcard__infocontainer__menu__item">
+                    <a id='boardLedenButton{{ $boardId }}' href="/board={{$boardId}}/leden" data-no-swup>Leden</a>
                 </li>
                 @if ($owner)
-                    <li id='boardDeleteButton{{ $boardId }}' onClick="toggleDeleteBoard({{ $boardId }});" class="boardcard__infocontainer__menu__item boardcard__infocontainer__menu__item--delete">
-                        Verwijder
+                    <li class="boardcard__infocontainer__menu__item">
+                        <a id='boardButton{{ $boardId }}' href="/board={{$boardId}}/bewerk" data-no-swup>Bewerk</a>
                     </li>
                 @else
-                    <li id='boardDeleteButton{{ $boardId }}' onClick="toggleLeaveBoard({{ $boardId }});" class="boardcard__infocontainer__menu__item boardcard__infocontainer__menu__item--delete">
+                    <li id='boardButton{{ $boardId }}' onClick="toggleLeaveBoard({{ $boardId }});" class="boardcard__infocontainer__menu__item boardcard__infocontainer__menu__item--delete">
                         Verlaat
                     </li>
                 @endif

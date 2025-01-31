@@ -87,7 +87,7 @@ html.is-animating .transition-authform {
         gap: 20px;
 
         &__submit {
-            background-color: v.$yellowdark;
+            background-color: v.$yellow;
             width: 100%;
             border: 2px solid black;
             border-radius: 8px;
@@ -131,5 +131,149 @@ html.is-animating .transition-authform {
 
     img {
         margin-top: 20px;
+    }
+}
+
+.error {
+    font-size: 16px;
+    color: red;
+}
+
+.success {
+    font-size: 16px;
+    color: green;
+    text-align: center;
+}
+
+
+.editprofile {
+    position: relative;
+    width: calc(100vw - v.$margin-mobile * 2);
+    background-color: white;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 40px;
+
+    @media only screen and (min-width:v.$md){
+        width: 80vw;
+    }
+
+    @media only screen and (min-width:v.$lg){
+        width: 800px;
+        padding: 40px;
+    }
+
+    &__title {
+        background-color: white;
+        padding: 10px 40px;
+        border-radius: 16px;
+        font-size: 20px;
+
+        @media only screen and (min-width:v.$lg){
+            font-size: 24px;
+        }
+    }
+
+    &__topcontainer {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        font-size: 18px;
+    
+        @media only screen and (min-width:v.$lg){
+            font-size: 20px;
+        }
+
+        &__annuleren {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+    &__container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        font-size: 22px;
+        gap: 40px;
+        padding-right: 20px;
+
+        max-height: 60vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        @media only screen and (min-width:v.$lg){
+            font-size: 24px;
+        }
+    }
+
+    &__subcontainer {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        &__title {
+            font-size: 20px;
+            border-bottom: 1px solid black;
+            margin-bottom: 10px;
+
+            @media only screen and (min-width:v.$lg){
+                font-size: 24px;
+            }
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        &__warning {
+            font-size: 18px;
+            
+            span {
+                font-weight: 500;
+            }
+        }
+
+        &__label, &__input {
+            font-size: 20px;
+        }
+
+        &__input {
+            width: 100%;
+            border: 2px solid black;
+            border-radius: 8px;
+            padding: 10px 20px 10px 20px;
+        }
+
+        &__buttoncontainer {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+    
+            &__submit {
+                background-color: v.$yellow;
+                width: 100%;
+                border: 2px solid black;
+                border-radius: 8px;
+                padding: 10px 20px 10px 20px;
+                font-size: 20px;
+    
+                @media only screen and (min-width:v.$sm){
+                    width: auto;
+                }
+
+                &--delete {
+                    background-color: red;
+                    color: white;
+                }
+            }
+        }
     }
 }

@@ -128,10 +128,10 @@
             <input type="hidden" id="idInput" name="id" value="">
             
             <div class="bewerkquote__topcontainer">
+                <input form="deleteForm" type="submit" value="Verwijder" class="bewerkquote__topcontainer__verwijder">
                 <h4 onClick="document.getElementById('bekijkQuote').parentNode.style.display='flex'; document.getElementById('bewerkQuote').parentNode.style.display='none'" class="bewerkquote__topcontainer__annuleren">
                     Annuleren
                 </h4>
-                <input form="deleteForm" type="submit" value="Verwijder" class="bewerkquote__topcontainer__verwijder">
             </input>
             </div>
             <textarea id="bewerkquoteQuote" name="quote" maxlength="150" class="bewerkquote__quote"></textarea>

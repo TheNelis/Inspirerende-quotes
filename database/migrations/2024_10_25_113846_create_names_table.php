@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('names', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignIdFor(\App\Models\Board::class);
+            $table->foreignIdFor(\App\Models\Board::class)
+                    ->constrained()
+                    ->cascadeOnDelete();
             $table->timestamps();
         });
     }

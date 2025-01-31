@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('image');
-            $table->boolean('pinned');
-            $table->foreignIdFor(\App\Models\User::class);
+            $table->foreignIdFor(\App\Models\User::class)
+                    ->constrained()
+                    ->cascadeOnDelete();
             $table->string('token')->unique();
             $table->timestamps();
         });
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Board::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
+            $table->boolean('pinned');
             $table->timestamps();
         });
     }

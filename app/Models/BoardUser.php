@@ -10,7 +10,7 @@ class BoardUser extends Model
     use HasFactory;
 
     protected $table = 'board_user';
-    protected $fillable = ['board_id', 'user_id'];
+    protected $fillable = ['board_id', 'user_id', 'pinned'];
 
     public function board()
     {

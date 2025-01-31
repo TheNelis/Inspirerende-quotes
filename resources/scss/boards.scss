@@ -8,7 +8,7 @@
     flex-direction: column;
     gap: 10px;
     margin-top: 20px;
-    min-height: 45vh;
+    min-height: 44vh;
 
     @media only screen and (min-width:v.$lg){
         flex-direction: row;
@@ -332,7 +332,15 @@
             font-size: 20px;
         }
 
-        &__annuleren {
+        p {
+            text-transform: capitalize;
+        }
+
+        &__delete {
+            color: red;
+        }
+
+        &__annuleren, &__delete {
             text-decoration: underline;
             cursor: pointer;
         }
@@ -364,6 +372,7 @@
             justify-content: space-between;
             padding: 10px 0;
             border-bottom: 1px solid black;
+            text-transform: capitalize;
 
             form {
                 display: flex;
@@ -400,21 +409,44 @@
     &__invite {
         border: 2px solid black;
         border-radius: 8px;
-        padding: 10px 130px 10px 20px;
+        padding: 10px 130px 10px 65px;
         width: 100%;
         font-size: 18px;
         color: gray;
         text-overflow: ellipsis;
 
         @media only screen and (min-width:v.$lg){
-            padding: 10px 150px 10px 20px;
+            padding: 10px 150px 10px 70px;
             font-size: 20px;
         }
 
         &__wrapper {
             position: relative;
 
-            button {
+            &__change {
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: flex;
+                align-items: center;
+                background-color: v.$yellow;
+                border: 2px solid black;
+                border-radius: 8px;
+                height: 100%;
+                padding: 0 15px;
+                font-size: 18px;
+
+                @media only screen and (min-width:v.$lg){
+                    font-size: 20px;
+                }
+
+                button svg {
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+
+            &__copy {
                 position: absolute;
                 top: 0;
                 right: 0;
@@ -445,8 +477,13 @@
     gap: 40px;
     margin: 0 v.$margin-mobile;
 
+    @media only screen and (min-width:v.$lg){
+        max-width: 500px;
+    }
+
     h2 {
         font-size: 20px;
+        text-align: center;
         
         @media only screen and (min-width:v.$lg){
             font-size: 24px;
@@ -456,12 +493,26 @@
     &__container {
         display: flex;
         align-items: center;
-        gap: 20px;
+        flex-wrap: wrap;
+        gap: 10px;
         font-size: 18px;
 
+        @media only screen and (min-width:v.$lg){
+            gap: 20px;
+        }
+
         &__button {
+            width: 100%;
+            border: 2px solid black;
             border-radius: 8px;
-            padding: 10px;
+            padding: 10px 20px 10px 20px;
+            font-size: 20px;
+            flex: 1;
+            white-space: nowrap;
+
+            @media only screen and (min-width:v.$lg){
+                flex: 0;
+            }
 
             &--delete {
                 background-color: red;
