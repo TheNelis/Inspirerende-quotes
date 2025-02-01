@@ -1,0 +1,61 @@
+@use "resources/scss/variables.scss" as v;
+
+
+.email {
+
+    &__headercontainer {
+        background-color: white;
+        padding: 20px v.$margin-desktop;
+
+        &__logo {
+            width: 150px;
+        }
+    }
+
+    &__titlecontainer {
+        background-color: v.$yellowlight;
+        padding: 40px v.$margin-desktop 150px v.$margin-desktop;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+
+        &__title {
+            font-size: 64px;
+            font-weight: bold;
+            line-height: 100%;
+        }
+
+        &__subtitle {
+            font-size: 20px;
+        }
+
+        &__button {
+            display: inline-block;
+            background-color: v.$yellow;
+            border: 2px solid black;
+            border-radius: 8px;
+            padding: 10px 20px 10px 20px;
+            color: black;
+            text-decoration: none;
+            font-size: 20px;
+        }
+    }
+
+    &__section {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        padding: 40px v.$margin-desktop;
+
+        &__title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        &__text {
+            font-size: 16px;
+        }
+    }
+}

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ForgotPassword;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
+use Mail;
+use Str;
 
 class RegisteredUserController extends Controller
 {
@@ -135,5 +138,71 @@ class RegisteredUserController extends Controller
         $user->delete();
 
         return redirect('/');
+    }
+
+
+
+    public function forgotPassword() 
+    {
+        return view('auth.forgot-password');
+    }
+
+    public function sendEmail()
+    {
+        $userExists = User::where('email', request('email'))
+                        ->exists();
+
+        if (!$userExists) {
+            throw ValidationException::withMessages([
+                'email' => 'Er bestaat geen account met dit emailadres.'
+            ]);
+        }
+
+        $user = User::where('email', request('email'))->first();;
+        $token = Str::random(32);
+        $user->update([
+            'password_token' => $token
+        ]);
+        $passwordLink = route('resetpassword', ['name' => $user->name, 'token' => $token]);
+
+        Mail::to(request('email'))->queue(
+            new ForgotPassword($passwordLink, $user->name)
+        );
+
+        return redirect('/forgot-password')->with('success', 'Er is een email verstuurd!');
+    }
+
+    public function processToken($name, $token)
+    {
+        $tokenExists = User::where('password_token', $token)
+                            ->where('name', $name)
+                            ->exists();
+
+        if (!$tokenExists) {
+            return redirect('/')->withErrors(['message' => 'Deze link is niet langer geldig.']);
+        }
+
+        return view('auth.reset-password', [
+            'token' => $token,
+            'name' => $name
+        ]);
+    }
+
+    public function resetPassword($name, $token)
+    {
+        request()->validate([
+            'password' => ['required', Password::min(6), 'confirmed'],
+        ]);
+
+        $user = User::where('password_token', $token)
+                    ->where('name', $name)
+                    ->firstOrFail();
+
+        $user->update([
+            'password' => request('password'),
+            'password_token' => null
+        ]);
+
+        return redirect('/')->with('success', 'Je wachtwoord is gewijzigd!');
     }
 }

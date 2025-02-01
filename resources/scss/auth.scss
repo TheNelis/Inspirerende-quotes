@@ -66,6 +66,15 @@ html.is-animating .transition-authform {
         display: flex;
         flex-direction: column;
         gap: 20px;
+
+        div a {
+            text-decoration: underline;
+        }
+
+        &__desc {
+            padding: 0 50px;
+            text-align: center;
+        }
     }
 
     &__label {

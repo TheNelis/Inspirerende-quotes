@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\BoardController;
-use App\Http\Controllers\BoardInviteController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
@@ -121,3 +120,18 @@ Route::delete('/account', [RegisteredUserController::class, 'deleteAccount']);
 Route::get('/login', [SessionController::class, 'create'])->name('login');
 Route::post('/login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);
+
+Route::get('/forgot-password', [RegisteredUserController::class, 'forgotPassword']);
+Route::post('/forgot-password', [RegisteredUserController::class, 'sendEmail']);
+Route::get('/resetpassword/user={name}/id={token}', [RegisteredUserController::class, 'processToken'])
+    ->name('resetpassword');
+Route::patch('/resetpassword/user={name}/id={token}', [RegisteredUserController::class, 'resetPassword']);
+
+Route::get('test', function() {
+
+    dispatch(function() {
+        logger('hello from the queue!');
+    });
+
+    return 'Done';
+});
