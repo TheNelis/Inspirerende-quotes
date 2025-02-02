@@ -126,12 +126,3 @@ Route::post('/forgot-password', [RegisteredUserController::class, 'sendEmail']);
 Route::get('/resetpassword/user={name}/id={token}', [RegisteredUserController::class, 'processToken'])
     ->name('resetpassword');
 Route::patch('/resetpassword/user={name}/id={token}', [RegisteredUserController::class, 'resetPassword']);
-
-Route::get('test', function() {
-
-    dispatch(function() {
-        logger('hello from the queue!');
-    });
-
-    return 'Done';
-});

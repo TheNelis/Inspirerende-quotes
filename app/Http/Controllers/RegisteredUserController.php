@@ -165,7 +165,7 @@ class RegisteredUserController extends Controller
         ]);
         $passwordLink = route('resetpassword', ['name' => $user->name, 'token' => $token]);
 
-        Mail::to(request('email'))->queue(
+        Mail::to(request('email'))->send(
             new ForgotPassword($passwordLink, $user->name)
         );
 
