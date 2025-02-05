@@ -11,17 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('boards', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('image');
-            $table->foreignIdFor(\App\Models\User::class)
-                    ->constrained()
-                    ->cascadeOnDelete();
-            $table->string('token')->unique();
-            $table->timestamps();
-        });
-
         Schema::create('board_user', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Board::class)->constrained()->cascadeOnDelete();
@@ -36,7 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('boards');
         Schema::dropIfExists('board_user');
     }
 };
